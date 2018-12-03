@@ -9,6 +9,8 @@ routes.use('/investarena-api', routes);
 
 routes.route('/broker/authorization')
     .post(platform.authorization);
+routes.route('/broker/reconnect')
+    .post(platform.reconnect);
 // routes.route('/broker/registration')
 //     .post(platform.registration);
 module.exports = routes;

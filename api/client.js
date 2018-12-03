@@ -1,4 +1,5 @@
 const axios = require('axios');
+const https = require('https');
 
 class ApiClient {
     async getToken(url, body) {
@@ -13,13 +14,27 @@ class ApiClient {
     }
     async authorization(url) {
         try {
-            const r = await axios.get(url);
+            const r = await axios.get(url, {
+                httpsAgent: new https.Agent({
+                    rejectUnauthorized: false
+                })
+            });
             if (r.status === 200) {
-                return r.body;
+                return {...r.data, WEBSRV: r.headers["set-cookie"][0].WEBSRV, um_session: r.headers["set-cookie"][1].um_session};
             }
 
         } catch (e) {
             console.log(e.message)
+        }
+    }
+    async reconnect (url, body) {
+        try {
+            const r = await axios.post(url, body);
+            if (r.status === 200) {
+                return r.data;
+            }
+        } catch (e) {
+            console.log(e.message);
         }
     }
 }

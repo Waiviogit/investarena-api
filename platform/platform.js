@@ -37,6 +37,25 @@ const authorization = async (req, res) => {
     }
 };
 
+const reconnect = async (req, res) => {
+    try {
+        if(validator.validateReconnect(req.body)) {
+            const connectionData = await apiClient.reconnect(reconnectURI(req.body.platform), {'su': req.body.su, 'sp': req.body.sp});
+
+            if(!connectionData){
+                res.status(422).json({error: 'Data is incorrect'})
+            } else {
+                res.status(200).json({connectionData});
+            }
+        } else {
+            res.status(422).json({error: 'Not enough data'})
+        }
+    }
+    catch (e) {
+        res.status(422).json({error: e.message})
+    }
+};
+
 const registration = async (req, res) => {
     // try {
     //     const transactionStatus = await api.getBlockNumberStream();
@@ -72,5 +91,5 @@ const registration = async (req, res) => {
 // };
 
 module.exports = {
-    registration, authorization
+    registration, authorization, reconnect
 };
