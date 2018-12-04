@@ -29,9 +29,10 @@ class ApiClient {
     }
     async reconnect (url, body) {
         try {
-            const r = await axios.post(url, body);
+            const r = await axios.post(url, body, { httpsAgent: new https.Agent({ rejectUnauthorized: false }) });
             if (r.status === 200) {
-                return r.data;
+                // console.log(r);
+                return "platform connected successfully";
             }
         } catch (e) {
             console.log(e.message);

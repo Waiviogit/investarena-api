@@ -1,9 +1,9 @@
 {
   "production": {
-    "url": "https://api.investarena.com"
+    "url": ""
   },
   "staging": {
-    "url": "http://api.socialtrading.uat.pp.ua"
+    "url": ""
   },
   "development": {
     "url": "http://localhost:3000/"
