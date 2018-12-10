@@ -26,7 +26,7 @@ const authorization = async (req, res) => {
             if(!result || !token){
                 res.status(422).json({error: 'Data is incorrect'})
             } else {
-                res.status(200).json({result, token});
+                res.status(200).json({...result, token});
             }
         } else {
             res.status(422).json({error: 'Not enough data'})
