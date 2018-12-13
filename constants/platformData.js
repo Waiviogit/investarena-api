@@ -1,10 +1,10 @@
 const domainPlatform = {
-    maximarkets: "uat-trading.maximarkets.org",
-    umarkets: "uat-trading.umarkets.com"
+    maximarkets: "trading.maximarkets.org",
+    umarkets: "trading.umarkets.com"
 };
 const domainCRM = {
-    maximarkets: "test-publicapi.maximarkets.org",
-    umarkets: "test-api.umarkets.com"
+    maximarkets: "publicapi.maximarkets.org",
+    umarkets: "api.umarkets.com"
 };
 
 const registrationURI = platform => `https://${domainCRM[platform]}/registration/full`;
