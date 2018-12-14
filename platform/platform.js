@@ -57,6 +57,35 @@ const reconnect = async (req, res) => {
 };
 
 const registration = async (req, res) => {
+    try {
+        if(validator.validateRegistration(req.body)) {
+            const params = req.body;
+            const paramsRequest = {
+            email: params.email,
+            password: params.password,
+            terms: true,
+            firstName: params.firstName,
+            LastName: params.lastName,
+            country: params.country,
+            PhoneCountry: params.phoneCountry,
+            PhoneOperator: params.phoneOperator,
+            PhoneNumber: params.phoneNumber,
+            LinkId: linkID[req.body.platform]
+            };
+            const connectionData = await apiClient.registration(registrationURI(req.body.platform), paramsRequest);
+
+            if(!connectionData){
+                res.status(422).json({error: 'Data is incorrect'})
+            } else {
+                res.status(200).json({connectionData});
+            }
+        } else {
+            res.status(422).json({error: 'Not enough data'})
+        }
+    }
+    catch (e) {
+        res.status(422).json({error: e.message})
+    }
     // try {
     //     const transactionStatus = await api.getBlockNumberStream();
     //     console.log(transactionStatus);

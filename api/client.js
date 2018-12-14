@@ -32,6 +32,14 @@ class ApiClient {
             console.log(e.message)
         }
     }
+    async registration(url, params) {
+        try {
+            const r = await axios.get(url, {params}, { httpsAgent: new https.Agent({ rejectUnauthorized: false }) });
+            if (r.status === 200) return r.data;
+        } catch (e) {
+            console.log(e.message)
+        }
+    }
     async reconnect (url, body) {
         try {
             const r = await axios.post(url, body, { httpsAgent: new https.Agent({ rejectUnauthorized: false }) });
