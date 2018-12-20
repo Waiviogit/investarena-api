@@ -36,7 +36,7 @@ class ApiClient {
             const r = await axios.get(url, {params}, { httpsAgent: new https.Agent({ rejectUnauthorized: false }) });
             if (r.status === 200) return r.data;
         } catch (e) {
-            console.log(e.message)
+            throw {message: (e.response && e.response.data && e.response.data.message) || e.message};
         }
     }
     async reconnect (url, body) {
