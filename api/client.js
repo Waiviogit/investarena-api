@@ -19,8 +19,7 @@ class ApiClient {
                     rejectUnauthorized: false
                 })
             });
-            if (r.status === 200) {
-                const b  = r;
+            if (r.status === 200 && r.headers && r.headers["set-cookie"] && r.headers["set-cookie"][0]) {
                 return {
                     ...r.data,
                     um_session: r.headers["set-cookie"][0].split(';')[0].replace('um_session=',""),
