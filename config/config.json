@@ -1,0 +1,17 @@
+{
+  "production" : {
+    "db": {
+      "host": "localhost",
+      "port": 27017,
+      "database": "waivio"
+    }
+  },
+
+  "development": {
+    "db": {
+      "host": "localhost",
+      "port": 27017,
+      "database": "waivio"
+    }
+  }
+}
