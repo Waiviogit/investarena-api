@@ -75,12 +75,25 @@ const formatAndCreate = async (instruments) => {
                     active_votes: []
                 });
         }
+        if(instrument.chartid){
+            wobject.fields.push({
+                weight: 1,
+                locale: 'en-US',
+                name: 'chartid',
+                body: instrument.chartid,
+                author: 'monterey',
+                creator: 'monterey',
+                permlink: 'monterey',
+                active_votes: []
+            });
+        }
 
         const {wObject, error} = await Wobj.create(wobject);
         if (wObject) {
             console.log(`Wobject ${instrument.name} created!`);
             created++;
         } else if (error) {
+            console.log(error);
             failed++;
         }
     }
