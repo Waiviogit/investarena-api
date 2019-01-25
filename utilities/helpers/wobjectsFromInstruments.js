@@ -1,7 +1,8 @@
 const {Wobj} = require('../../models');
+const {validator} = require('../../validator');
 
 const formatAndCreate = async (instruments) => {
-    if (!instruments || !Array.isArray(instruments) || !instruments.length) {
+    if(!validator.validateInputInstruments({instruments})){
         return {error: 'data is invalid'}
     }
     let created = 0;
@@ -11,7 +12,7 @@ const formatAndCreate = async (instruments) => {
             author_permlink: instrument.id,
             object_type: instrument.type,
             default_name: instrument.name,
-            is_posting_open: false,
+            is_posting_open: true,
             is_extending_open: false,
             author: 'monterey',
             creator: 'monterey',
@@ -41,24 +42,29 @@ const formatAndCreate = async (instruments) => {
                 {
                     weight: 1,
                     locale: 'en-US',
-                    name: 'desctiption',
-                    body: instrument.description,
-                    author: 'monterey',
-                    creator: 'monterey',
-                    permlink: 'monterey',
-                    active_votes: []
-                },
-                {
-                    weight: 1,
-                    locale: 'en-US',
                     name: 'avatar',
                     body: instrument.avatar,
                     author: 'monterey',
                     creator: 'monterey',
                     permlink: 'monterey',
                     active_votes: []
-                },
-                {
+                }
+            ]
+        };
+        if(instrument.description){
+            wobject.fields.push({
+                    weight: 1,
+                    locale: 'en-US',
+                    name: 'description',
+                    body: instrument.description,
+                    author: 'monterey',
+                    creator: 'monterey',
+                    permlink: 'monterey',
+                    active_votes: []
+                });
+        }
+        if(instrument.background){
+            wobject.fields.push({
                     weight: 1,
                     locale: 'en-US',
                     name: 'background',
@@ -67,9 +73,9 @@ const formatAndCreate = async (instruments) => {
                     creator: 'monterey',
                     permlink: 'monterey',
                     active_votes: []
-                }
-            ]
-        };
+                });
+        }
+
         const {wObject, error} = await Wobj.create(wobject);
         if (wObject) {
             console.log(`Wobject ${instrument.name} created!`);

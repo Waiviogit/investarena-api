@@ -28,6 +28,21 @@ const validateRegistration = (data) => {
     return isValid;
 };
 
+const validateInputInstruments = (data) => {
+    const requiredInstrumentFields = 'id,type,name,title,avatar'.split(',');
+    let isValid = true;
+    if (!data.instruments || !Array.isArray(data.instruments) || !data.instruments.length) {
+        isValid = false;
+    }
+    data.instruments.forEach(instrument => {
+        if (!instrument) isValid = false;
+        requiredInstrumentFields.forEach(field => {
+            if (instrument[field] === undefined || instrument[field] === null) isValid = false
+        });
+    });
+    return isValid;
+};
+
 module.exports = {
-    validateAuthorisation, validateReconnect, validateRegistration
+    validateAuthorisation, validateReconnect, validateRegistration, validateInputInstruments
 };
