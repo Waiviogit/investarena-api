@@ -1,5 +1,6 @@
 const {Wobj} = require('../../models');
 const {validator} = require('../../validator');
+const _ = require('lodash');
 
 const formatAndCreate = async (instruments) => {
     if(!validator.validateInputInstruments({instruments})){
@@ -86,6 +87,22 @@ const formatAndCreate = async (instruments) => {
                 permlink: 'monterey',
                 active_votes: []
             });
+        }
+        if(instrument.tags && Array.isArray(instrument.tags) && instrument.tags.length){
+            instrument.tags.forEach(tag=>{
+                if(_.isString(tag)){
+                    wobject.fields.push({
+                        weight: 1,
+                        locale: 'en-US',
+                        name: 'tag',
+                        body: tag,
+                        author: 'monterey',
+                        creator: 'monterey',
+                        permlink: 'monterey',
+                        active_votes: []
+                    })
+                }
+            })
         }
 
         const {wObject, error} = await Wobj.create(wobject);
