@@ -24,7 +24,7 @@ const authorization = async (req, res) => {
             const result = await apiClient.authorization(url);
 
             if(!result || !token){
-                res.status(422).json({error: 'Data is incorrect'})
+                res.status(401).json({error: 'Incorrect authorisation data'})
             } else {
                 res.status(200).json({...result, token});
             }
@@ -40,7 +40,7 @@ const authorization = async (req, res) => {
 const reconnect = async (req, res) => {
     try {
         if(validator.validateReconnect(req.body)) {
-            const connectionData = await apiClient.reconnect(reconnectURI(req.body.platform), {'su': req.body.su, 'sp': req.body.sp});
+            const connectionData = await apiClient.reconnect(reconnectURI(req.body.platform), {'su': req.body.stomp_user, 'sp': req.body.stomp_password});
 
             if(!connectionData){
                 res.status(422).json({error: 'Data is incorrect'})

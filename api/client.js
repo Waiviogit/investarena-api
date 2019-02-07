@@ -9,7 +9,10 @@ class ApiClient {
                 return r.data.token;
             }
         } catch (e) {
-            console.log(e.message)
+            if(e.response.status === 401){
+                e.message = 'Incorrect login or password'
+            }
+            throw e
         }
     }
     async authorization(url) {
@@ -28,7 +31,7 @@ class ApiClient {
             }
 
         } catch (e) {
-            console.log(e.message)
+            throw e
         }
     }
     async registration(url, params) {
@@ -47,7 +50,7 @@ class ApiClient {
                 return "platform connected successfully";
             }
         } catch (e) {
-            console.log(e.message);
+            throw e
         }
     }
 }

@@ -1,4 +1,4 @@
-const requiredFieldsAuthorisation = 'platform,email,password'.split(',');
+const requiredFieldsAuthorisation = ['platform', 'email', 'password'];
 
 const validateAuthorisation = (data) => {
     let isValid = true;
@@ -8,7 +8,7 @@ const validateAuthorisation = (data) => {
     return isValid;
 };
 
-const requiredFieldsReconnect = 'su,sp,platform'.split(',');
+const requiredFieldsReconnect = ['stomp_user', 'stomp_password', 'platform'];
 
 const validateReconnect = (data) => {
     let isValid = true;
@@ -18,7 +18,7 @@ const validateReconnect = (data) => {
     return isValid;
 };
 
-const requiredFieldsRegistration = 'email,password,firstName,lastName,country,phoneCountry,phoneOperator,phoneNumber,platform'.split(',');
+const requiredFieldsRegistration = ['email', 'password', 'firstName', 'lastName', 'country', 'phoneCountry', 'phoneOperator', 'phoneNumber', 'platform'];
 
 const validateRegistration = (data) => {
     let isValid = true;
