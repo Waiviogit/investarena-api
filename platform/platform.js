@@ -33,6 +33,9 @@ const authorization = async (req, res) => {
         }
     }
     catch (e) {
+        if(e.response && e.response.status && e.response.data && e.response.data.message){
+            res.status(e.response.status).json({error: e.response.data.message});
+        }
         res.status(422).json({error: e.message})
     }
 };

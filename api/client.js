@@ -26,7 +26,7 @@ class ApiClient {
                 return {
                     ...r.data,
                     um_session: r.headers["set-cookie"][0].split(';')[0].replace('um_session=',""),
-                    WEBSRV: r.headers["set-cookie"][1].split(';')[0].replace('WEBSRV=',"")
+                    WEBSRV: r.headers["set-cookie"][0].split(';')[1].replace('WEBSRV=',"")
                 };
             }
 
@@ -46,7 +46,6 @@ class ApiClient {
         try {
             const r = await axios.post(url, body, { httpsAgent: new https.Agent({ rejectUnauthorized: false }) });
             if (r.status === 200) {
-                // console.log(r);
                 return "platform connected successfully";
             }
         } catch (e) {
