@@ -1,11 +1,26 @@
 {
   "production": {
-    "url": ""
+    "BASE_URL": "/investarena-api",
+    "BROKER": {
+      "AUTHORIZATION": "/broker/authorization",
+      "RECONNECT": "/broker/reconnect",
+      "REGISTRATION": "/broker/registration"
+    }
   },
   "staging": {
-    "url": ""
+    "BASE_URL": "/investarena-api",
+    "BROKER": {
+      "AUTHORIZATION": "/broker/authorization",
+      "RECONNECT": "/broker/reconnect",
+      "REGISTRATION": "/broker/registration"
+    }
   },
   "development": {
-    "url": "http://localhost:8095/"
+    "BASE_URL": "http://localhost:8095/",
+    "BROKER": {
+      "AUTHORIZATION": "/broker/authorization",
+      "RECONNECT": "/broker/reconnect",
+      "REGISTRATION": "/broker/registration"
+    }
   }
 }

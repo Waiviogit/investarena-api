@@ -1,3 +1,5 @@
+const urlConfig = require('../etc');
+
 const {
     WobjController
 } = require('../controllers');
@@ -8,14 +10,19 @@ const express = require('express');
 
 const routes = express.Router();
 
-routes.use('/investarena-api', routes);
+routes.use(urlConfig.BASE_URL, routes);
 
-routes.route('/broker/authorization')
+routes
+    .route(urlConfig.BROKER.AUTHORIZATION)
     .post(platform.authorization);
-routes.route('/broker/reconnect')
+routes
+    .route(urlConfig.BROKER.RECONNECT)
     .post(platform.reconnect);
-routes.route('/broker/registration')
+routes
+    .route(urlConfig.BROKER.REGISTRATION)
     .post(platform.registration);
-routes.route('/create-instrument-wobjects')
+routes
+    .route('/create-instrument-wobjects')
     .post(WobjController.createWobjectsInstruments);
+
 module.exports = routes;
