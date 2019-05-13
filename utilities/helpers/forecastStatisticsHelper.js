@@ -28,9 +28,11 @@ function getStatsByPeriods(forecasts) {
             data.splice(index, 1);
             index = data.findIndex(forecast => forecast.createdAt >= datePoints[pastDate]);
         }
-        initProfitability = datePoints[pastDate] = currPeriodForecasts.length
-            ? currPeriodForecasts.reduce((acc, curr) => (acc + curr.profitabilityPercent), initProfitability)
-            : initProfitability;
+        datePoints[pastDate] = Number.parseFloat(currPeriodForecasts.reduce(
+            (acc, curr) => (acc + curr.profitabilityPercent),
+            Number.parseFloat(initProfitability.toFixed(3)),
+        ).toFixed(3));
+        initProfitability = datePoints[pastDate];
     });
 
     return datePoints;
