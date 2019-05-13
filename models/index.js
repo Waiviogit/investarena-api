@@ -1,3 +1,3 @@
 module.exports = {
-    Wobj: require('./wObjectModel')
+    Forecast: require('./ForecastModel')
 };

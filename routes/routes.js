@@ -1,7 +1,8 @@
 const urlConfig = require('../etc');
 
 const {
-    WobjController
+    WobjController,
+    UserController,
 } = require('../controllers');
 
 const { platform } = require('../platform');
@@ -22,7 +23,6 @@ routes
     .route(urlConfig.BROKER.REGISTRATION)
     .post(platform.registration);
 routes
-    .route('/create-instrument-wobjects')
-    .post(WobjController.createWobjectsInstruments);
-
+    .route(`${urlConfig.USER.STATISTICS}${urlConfig.PARAMS.USER_NAME}`) // /user-statistics/:userName
+    .get(UserController.getUserForecastStats);
 module.exports = routes;
