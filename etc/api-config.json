@@ -5,6 +5,12 @@
       "AUTHORIZATION": "/broker/authorization",
       "RECONNECT": "/broker/reconnect",
       "REGISTRATION": "/broker/registration"
+    },
+    "USER": {
+      "STATISTICS": "/user-statistics"
+    },
+    "PARAMS": {
+      "USER_NAME": "/:userName"
     }
   },
   "staging": {
@@ -13,6 +19,12 @@
       "AUTHORIZATION": "/broker/authorization",
       "RECONNECT": "/broker/reconnect",
       "REGISTRATION": "/broker/registration"
+    },
+    "USER": {
+      "STATISTICS": "/user-statistics"
+    },
+    "PARAMS": {
+      "USER_NAME": "/:userName"
     }
   },
   "development": {
