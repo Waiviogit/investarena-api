@@ -1,10 +1,18 @@
-const { getForecastsByAuthor } = require('../models/ForecastModel');
-const { getStatsByPeriods } = require('../utilities');
+const { getUserStatistic } = require('../models/UserStatisticModel');
 
 const getUserForecastStats = async function (req, res, next) {
-    const forecasts = await getForecastsByAuthor(req.params.userName);
-    const result = getStatsByPeriods(forecasts);
-    res.status(200).json(result);
+    const { userStatistic, error } = await getUserStatistic(req.params.userName);
+    if(error) {
+        return next();
+    }
+    res.status(200).json(userStatistic);
 };
 
-module.exports = { getUserForecastStats };
+const getTopPerformersByPeriods = async function (req, res, next) {
+    return next();
+};
+
+module.exports = {
+    getUserForecastStats,
+    getTopPerformersByPeriods,
+};

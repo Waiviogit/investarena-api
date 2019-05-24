@@ -9,6 +9,7 @@
     "USER": {
       "STATISTICS": "/user-statistics"
     },
+    "TOP_PERFORMERS": "/top-performers",
     "PARAMS": {
       "USER_NAME": "/:userName"
     }
@@ -23,6 +24,7 @@
     "USER": {
       "STATISTICS": "/user-statistics"
     },
+    "TOP_PERFORMERS": "/top-performers",
     "PARAMS": {
       "USER_NAME": "/:userName"
     }
@@ -37,6 +39,7 @@
     "USER": {
       "STATISTICS": "/user-statistics"
     },
+    "TOP_PERFORMERS": "/top-performers",
     "PARAMS": {
       "USER_NAME": "/:userName"
     }

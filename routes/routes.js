@@ -1,7 +1,6 @@
 const urlConfig = require('../etc');
 
 const {
-    WobjController,
     UserController,
 } = require('../controllers');
 
@@ -25,4 +24,7 @@ routes
 routes
     .route(`${urlConfig.USER.STATISTICS}${urlConfig.PARAMS.USER_NAME}`) // /user-statistics/:userName
     .get(UserController.getUserForecastStats);
+routes
+    .route(`${urlConfig.TOP_PERFORMERS}`) // /top-performers
+    .get(UserController.getTopPerformersByPeriods);
 module.exports = routes;
