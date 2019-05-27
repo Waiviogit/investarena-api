@@ -1,9 +1,11 @@
 const mongoose = require( 'mongoose' );
 const Schema = mongoose.Schema;
 
-const UserStatisticSchema = new Schema( {
+const PerformerStatisticSchema = new Schema( {
+        id: { type: String, required: true }, // authorPermlink - for instruments; name - for users
         name: { type: String },
-    // Profitability of user's forecasts by periods:
+        type: { type: String, enum: [ 'forecaster', 'instrument' ] },
+        // Profitability percentage by periods:
         // by days:
         d1: { type: Number, default: null },
         d7: { type: Number, default: null },
@@ -19,6 +21,6 @@ const UserStatisticSchema = new Schema( {
     }
 );
 
-UserStatisticSchema.index({ name: 1 }, { unique: true });
+PerformerStatisticSchema.index({ id: 1 }, { unique: true });
 
-module.exports = mongoose.model( 'UserStatistic', UserStatisticSchema);
+module.exports = mongoose.model( 'PerformerStatistic', PerformerStatisticSchema);

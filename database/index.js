@@ -12,6 +12,6 @@ mongoose.Promise = global.Promise;
 module.exports = { Mongoose: mongoose,
     models: {
         Forecast: require('./schemas/ForecastSchema'),
-        UserStatistic: require( './schemas/UserStatisticSchema' ),
+        PerformerStatistic: require( './schemas/PerformerStatisticSchema' ),
     }
 };

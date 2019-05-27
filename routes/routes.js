@@ -1,7 +1,7 @@
 const urlConfig = require('../etc');
 
 const {
-    UserController,
+    PerformerStatisticController,
 } = require('../controllers');
 
 const { platform } = require('../platform');
@@ -23,8 +23,13 @@ routes
     .post(platform.registration);
 routes
     .route(`${urlConfig.USER.STATISTICS}${urlConfig.PARAMS.USER_NAME}`) // /user-statistics/:userName
-    .get(UserController.getUserForecastStats);
+    .get(PerformerStatisticController.getUserForecastStats);
 routes
     .route(`${urlConfig.TOP_PERFORMERS}`) // /top-performers
-    .get(UserController.getTopPerformersByPeriods);
+    .get(PerformerStatisticController.getTopPerformersList);
+routes
+    .route(`${urlConfig.TOP_PERFORMERS}${urlConfig.PARAMS.PERIOD}`) // /top-performers/:period
+    .get(PerformerStatisticController.getTopPerformersForPeriod);
+
+
 module.exports = routes;

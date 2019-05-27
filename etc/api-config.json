@@ -11,7 +11,8 @@
     },
     "TOP_PERFORMERS": "/top-performers",
     "PARAMS": {
-      "USER_NAME": "/:userName"
+      "USER_NAME": "/:userName",
+      "PERIOD": "/:period"
     }
   },
   "staging": {
@@ -26,7 +27,8 @@
     },
     "TOP_PERFORMERS": "/top-performers",
     "PARAMS": {
-      "USER_NAME": "/:userName"
+      "USER_NAME": "/:userName",
+      "PERIOD": "/:period"
     }
   },
   "development": {
@@ -41,7 +43,8 @@
     },
     "TOP_PERFORMERS": "/top-performers",
     "PARAMS": {
-      "USER_NAME": "/:userName"
+      "USER_NAME": "/:userName",
+      "PERIOD": "/:period"
     }
   }
 }
