@@ -17,7 +17,7 @@ const getTopPerformersByPeriod = async function getTopPerformersByPeriod( period
             return { error: new Error('incorrect period param') };
         }
         const result = await PerformerStatistic
-            .find({}, `${period} name type`)
+            .find({}, `${period} name avatar type id`)
             .sort({ [period]: -1 })
             .limit(limit)
             .skip(skip)
@@ -46,46 +46,8 @@ const getTopPerformersForAllPeriods = async function getTopPerformersForAllPerio
 
 };
 
-// const saveUserStatistic = async function saveUserStatistic(data) {
-//     try {
-//         const result = await PerformerStatistic
-//             .replaceOne(
-//                 { id: data.name },
-//                 { ...data, id: data.name, type: 'forecaster'},
-//                 { upsert: true });
-//         return { result: Boolean(result) }
-//     } catch (error) {
-//         return { error };
-//     }
-// };
-// const saveInstrumentStatistic = async function saveInstrumentStatistic(data) {
-//     try {
-//         const result = await PerformerStatistic
-//             .replaceOne(
-//                 { id: data.authorPermlink },
-//                 { ...data, id: data.authorPermlink, type: 'instrument' },
-//                 { upsert: true });
-//         return { result: Boolean(result) }
-//     } catch (error) {
-//         return { error };
-//     }
-// };
-// const getUserNames = async function getAllUsersWithStatistic() {
-//     try {
-//         const users = await PerformerStatistic
-//             .find({ type: 'forecaster' })
-//             .lean();
-//         return { userNames: users.map(u => u.name) };
-//     } catch (error) {
-//         return { error };
-//     }
-// };
-
 module.exports = {
     getUserStatistic,
     getTopPerformersByPeriod,
     getTopPerformersForAllPeriods,
-    // getUserNames,
-    // saveUserStatistic,
-    // saveInstrumentStatistic,
 };

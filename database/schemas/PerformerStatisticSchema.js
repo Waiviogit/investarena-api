@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const PerformerStatisticSchema = new Schema( {
         id: { type: String, required: true }, // authorPermlink - for instruments; name - for users
         name: { type: String },
+        avatar: { type: String, default: '' },
         type: { type: String, enum: [ 'forecaster', 'instrument' ] },
         // Profitability percentage by periods:
         // by days:
