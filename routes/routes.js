@@ -22,14 +22,19 @@ routes
     .route(urlConfig.BROKER.REGISTRATION)
     .post(platform.registration);
 routes
-    .route(`${urlConfig.USER.STATISTICS}${urlConfig.PARAMS.USER_NAME}`) // /user-statistics/:userName
+    .route(`${urlConfig.PERFORMERS.USER_STATISTICS}${urlConfig.PARAMS.USER_NAME}`) // /user-statistics/:userName
     .get(PerformerStatisticController.getUserForecastStats);
 routes
-    .route(`${urlConfig.TOP_PERFORMERS}`) // /top-performers
+    .route(`${urlConfig.PERFORMERS.INSTRUMENT_STATISTICS}${urlConfig.PARAMS.ID}`) // /instrument-statistics/:id
+    .get(PerformerStatisticController.getInstrumentStats);
+routes
+    .route(`${urlConfig.PERFORMERS.TOP}`) // /top-performers
     .get(PerformerStatisticController.getTopPerformersList);
 routes
-    .route(`${urlConfig.TOP_PERFORMERS}${urlConfig.PARAMS.PERIOD}`) // /top-performers/:period
+    .route(`${urlConfig.PERFORMERS.TOP}${urlConfig.PARAMS.PERIOD}`) // /top-performers/:period
     .get(PerformerStatisticController.getTopPerformersForPeriod);
-
+routes
+    .route(`${urlConfig.PERFORMERS.INSTRUMENTS_SEARCH}`)
+    .get(PerformerStatisticController.searchInstrumentsStatistic); // /search-instruments-stats
 
 module.exports = routes;

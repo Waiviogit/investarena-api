@@ -4,8 +4,21 @@ const { asyncForEach } = require('../utilities/helpers/common');
 
 const getUserStatistic = async function getUserStaticticByName(userName) {
     try {
-        const userStatistic = await PerformerStatistic.find({ id: userName }).lean();
+        const userStatistic = await PerformerStatistic
+            .find({ id: userName }, '-avatar -id -_id -__v')
+            .lean();
         return { userStatistic };
+    } catch (error) {
+        return { error };
+    }
+};
+
+const getInstrumentStatistic = async function getInstrumentStatByAuthorPermlink(id) {
+    try {
+        const instrumentStatistic = await PerformerStatistic
+            .find({ id }, '-_id -__v')
+            .lean();
+        return { instrumentStatistic };
     } catch (error) {
         return { error };
     }
@@ -17,7 +30,7 @@ const getTopPerformersByPeriod = async function getTopPerformersByPeriod( period
             return { error: new Error('incorrect period param') };
         }
         const result = await PerformerStatistic
-            .find({}, `${period} name avatar type id`)
+            .find({}, `${period} name avatar type id -_id`)
             .sort({ [period]: -1 })
             .limit(limit)
             .skip(skip)
@@ -48,6 +61,7 @@ const getTopPerformersForAllPeriods = async function getTopPerformersForAllPerio
 
 module.exports = {
     getUserStatistic,
+    getInstrumentStatistic,
     getTopPerformersByPeriod,
     getTopPerformersForAllPeriods,
 };
