@@ -1,12 +1,14 @@
+const { performerTypes } = require('../constants/performerStatistic');
 const {
     getUserStatistic,
     getInstrumentStatistic,
     getTopPerformersByPeriod,
-    getTopPerformersForAllPeriods
+    getTopPerformersForAllPeriods,
+    searchPerformersByName,
 } = require('../models/PerformerStatisticModel');
 
 const getUserForecastStats = async function (req, res, next) {
-    const { userStatistic, error } = await getUserStatistic(req.params.userName);
+    const { userStatistic, error } = await getUserStatistic(req.params.name);
     if(error) {
         return next();
     }
@@ -38,8 +40,11 @@ const getTopPerformersList = async function (req, res, next) {
 };
 
 const searchInstrumentsStatistic = async function (req, res, next) {
-    return next();
-};
+    const { result, error } = await searchPerformersByName(req.params.name, performerTypes.INSTRUMENT);
+    if(error) {
+        return next();
+    }
+    res.status(200).json(result);};
 
 module.exports = {
     getUserForecastStats,

@@ -1,11 +1,12 @@
 const mongoose = require( 'mongoose' );
 const Schema = mongoose.Schema;
+const { performerTypes } = require('../../constants/performerStatistic');
 
 const PerformerStatisticSchema = new Schema( {
         id: { type: String, required: true }, // authorPermlink - for instruments; name - for users
         name: { type: String },
         avatar: { type: String, default: '' },
-        type: { type: String, enum: [ 'forecaster', 'instrument' ] },
+        type: { type: String, enum: [ performerTypes.USER, performerTypes.INSTRUMENT ] },
         // Profitability percentage by periods:
         // by days:
         d1: { type: Number, default: null },

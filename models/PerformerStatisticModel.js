@@ -1,11 +1,11 @@
 const PerformerStatistic = require('../database').models.PerformerStatistic;
-const { periods } = require('../constants/performerStatistic');
+const { periods, performerTypes } = require('../constants/performerStatistic');
 const { asyncForEach } = require('../utilities/helpers/common');
 
-const getUserStatistic = async function getUserStaticticByName(userName) {
+const getUserStatistic = async function getUserStatisticByName(userName) { // todo: use findOne? - sync with front
     try {
         const userStatistic = await PerformerStatistic
-            .find({ id: userName }, '-avatar -id -_id -__v')
+            .find({ id: userName, type: performerTypes.USER }, '-avatar -id -_id -__v')
             .lean();
         return { userStatistic };
     } catch (error) {
@@ -16,7 +16,7 @@ const getUserStatistic = async function getUserStaticticByName(userName) {
 const getInstrumentStatistic = async function getInstrumentStatByAuthorPermlink(id) {
     try {
         const instrumentStatistic = await PerformerStatistic
-            .find({ id }, '-_id -__v')
+            .findOne({ id }, '-_id -__v')
             .lean();
         return { instrumentStatistic };
     } catch (error) {
@@ -56,7 +56,20 @@ const getTopPerformersForAllPeriods = async function getTopPerformersForAllPerio
     } catch (error) {
         return { error };
     }
+};
 
+const searchPerformersByName = async function searchPerformers(searchString, performerType ) {
+    try {
+        const type = Boolean(performerType) && Object.values(performerTypes).includes(performerType)
+            ? performerType
+            : /.+/;
+        const result = await PerformerStatistic
+            .find({ name: { $regex: `\\b${searchString}.*\\b`, $options: 'i' }, type }, '-_id -__v')
+            .lean();
+        return { result };
+    } catch (error) {
+        return { error };
+    }
 };
 
 module.exports = {
@@ -64,4 +77,5 @@ module.exports = {
     getInstrumentStatistic,
     getTopPerformersByPeriod,
     getTopPerformersForAllPeriods,
+    searchPerformersByName,
 };

@@ -48,7 +48,7 @@
     },
     "PARAMS": {
       "ID": "/:id",
-      "USER_NAME": "/:userName",
+      "NAME": "/:name",
       "PERIOD": "/:period"
     }
   }
