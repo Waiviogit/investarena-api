@@ -1,3 +1,4 @@
 module.exports = {
-    Forecast: require('./ForecastModel')
+    Forecast: require('./ForecastModel'),
+    PerformerStatistic: require('./PerformerStatisticModel'),
 };
