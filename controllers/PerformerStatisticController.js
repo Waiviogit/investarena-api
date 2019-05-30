@@ -40,7 +40,11 @@ const getTopPerformersList = async function (req, res, next) {
 };
 
 const searchInstrumentsStatistic = async function (req, res, next) {
-    const { result, error } = await searchPerformersByName(req.params.name, performerTypes.INSTRUMENT, req.query.limit);
+    const { result, error } = await searchPerformersByName(
+        req.params.name,
+        decodeURIComponent(performerTypes.INSTRUMENT),
+        req.query.limit
+    );
     if(error) {
         return next();
     }

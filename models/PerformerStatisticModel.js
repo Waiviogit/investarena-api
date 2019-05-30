@@ -24,11 +24,14 @@ const getInstrumentStatistic = async function getInstrumentStatByAuthorPermlink(
     }
 };
 
-const getTopPerformersByPeriod = async function getTopPerformersByPeriod( period = 'd1', limit = 5, skip = 0 ) {
+const defaultTopPerformersLimit = 5;
+const getTopPerformersByPeriod = async function getTopPerformersByPeriod( period = 'd1', queryLimit = defaultTopPerformersLimit, querySkip = 0 ) {
     try {
         if(!periods.includes(period)) {
             return { error: new Error('incorrect period param') };
         }
+        const limit = !isNaN(queryLimit) && queryLimit > 0 ? queryLimit : defaultTopPerformersLimit;
+        const skip = isNaN(querySkip) ? 0 : querySkip;
         const result = await PerformerStatistic
             .find({}, `${period} name avatar type id -_id`)
             .sort({ [period]: -1 })
@@ -67,6 +70,7 @@ const searchPerformersByName = async function searchPerformers(searchString, per
         const limit = queryLimit && isNaN(queryLimit) ? defaultSearchPerformersLimit : queryLimit;
         const result = await PerformerStatistic
             .find({ name: { $regex: `\\b${searchString}.*\\b`, $options: 'i' }, type }, '-_id -__v')
+            .sort({ name: 1 })
             .limit(limit)
             .lean();
         return { result };
