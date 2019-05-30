@@ -58,13 +58,16 @@ const getTopPerformersForAllPeriods = async function getTopPerformersForAllPerio
     }
 };
 
-const searchPerformersByName = async function searchPerformers(searchString, performerType ) {
+const defaultSearchPerformersLimit = 10;
+const searchPerformersByName = async function searchPerformers(searchString, performerType, queryLimit = defaultSearchPerformersLimit ) {
     try {
         const type = Boolean(performerType) && Object.values(performerTypes).includes(performerType)
             ? performerType
             : /.+/;
+        const limit = queryLimit && isNaN(queryLimit) ? defaultSearchPerformersLimit : queryLimit;
         const result = await PerformerStatistic
             .find({ name: { $regex: `\\b${searchString}.*\\b`, $options: 'i' }, type }, '-_id -__v')
+            .limit(limit)
             .lean();
         return { result };
     } catch (error) {
