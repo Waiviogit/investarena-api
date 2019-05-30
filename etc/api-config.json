@@ -9,10 +9,12 @@
     "PERFORMERS": {
       "TOP": "/top-performers",
       "USER_STATISTICS": "/user-statistics",
+      "INSTRUMENT_STATISTICS": "/instrument-statistics",
       "INSTRUMENTS_SEARCH": "/search-instruments-stats"
     },
     "PARAMS": {
-      "USER_NAME": "/:userName",
+      "ID": "/:id",
+      "NAME": "/:name",
       "PERIOD": "/:period"
     }
   },
@@ -26,10 +28,12 @@
     "PERFORMERS": {
       "TOP": "/top-performers",
       "USER_STATISTICS": "/user-statistics",
+      "INSTRUMENT_STATISTICS": "/instrument-statistics",
       "INSTRUMENTS_SEARCH": "/search-instruments-stats"
     },
     "PARAMS": {
-      "USER_NAME": "/:userName",
+      "ID": "/:id",
+      "NAME": "/:name",
       "PERIOD": "/:period"
     }
   },
