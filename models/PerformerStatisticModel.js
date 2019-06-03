@@ -30,8 +30,8 @@ const getTopPerformersByPeriod = async function getTopPerformersByPeriod( period
         if(!periods.includes(period)) {
             return { error: new Error('incorrect period param') };
         }
-        const limit = !isNaN(queryLimit) && queryLimit > 0 ? queryLimit : defaultTopPerformersLimit;
-        const skip = isNaN(querySkip) ? 0 : querySkip;
+        const limit = !isNaN(queryLimit) && queryLimit > 0 ? Number(queryLimit) : defaultTopPerformersLimit;
+        const skip = isNaN(querySkip) ? 0 : Number(querySkip);
         const result = await PerformerStatistic
             .find({}, `${period} name avatar type id -_id`)
             .sort({ [period]: -1 })
@@ -67,7 +67,7 @@ const searchPerformersByName = async function searchPerformers(searchString, per
         const type = Boolean(performerType) && Object.values(performerTypes).includes(performerType)
             ? performerType
             : /.+/;
-        const limit = queryLimit && isNaN(queryLimit) ? defaultSearchPerformersLimit : queryLimit;
+        const limit = queryLimit && isNaN(queryLimit) ? defaultSearchPerformersLimit : Number(queryLimit);
         const result = await PerformerStatistic
             .find({ name: { $regex: `\\b${searchString}.*\\b`, $options: 'i' }, type }, '-_id -__v')
             .sort({ name: 1 })
