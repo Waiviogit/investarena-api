@@ -1,4 +1,5 @@
 const ForecastModel = require('../database').models.Forecast;
+const { getForecasts } = require( '../utilities/redis/redisGetter' );
 
 const getForecastsByAuthor = async function getForecastsByAuthor(userName) {
     const date = new Date();
@@ -9,6 +10,13 @@ const getForecastsByAuthor = async function getForecastsByAuthor(userName) {
       .lean();
 };
 
+const getActiveForecasts = async( data ) => {
+    const name = data.name ? data.name : '*';
+    const forecasts = await getForecasts( {name: name, currency: data.currency} );
+
+    return { forecasts: forecasts };
+};
+
 module.exports = {
-    getForecastsByAuthor,
+    getForecastsByAuthor, getActiveForecasts
 };

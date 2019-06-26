@@ -1,6 +1,7 @@
 const urlConfig = require('../etc');
 
 const {
+    ForecastController,
     PerformerStatisticController,
 } = require('../controllers');
 
@@ -38,5 +39,6 @@ routes
 routes
     .route(`${urlConfig.PERFORMERS.INSTRUMENTS_SEARCH}${urlConfig.PARAMS.NAME}`)
     .get(PerformerStatisticController.searchInstrumentsStatistic); // /search-instruments-stats/:name[?limit=10]
+routes.route( '/active_forecasts' ).get( ForecastController.activeForecasts );
 
 module.exports = routes;
