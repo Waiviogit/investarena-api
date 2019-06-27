@@ -39,6 +39,8 @@ routes
 routes
     .route(`${urlConfig.PERFORMERS.INSTRUMENTS_SEARCH}${urlConfig.PARAMS.NAME}`)
     .get(PerformerStatisticController.searchInstrumentsStatistic); // /search-instruments-stats/:name[?limit=10]
-routes.route( '/active_forecasts' ).get( ForecastController.activeForecasts );
+routes
+    .route( urlConfig.PERFORMERS.ACTIVE_FORECASTS)
+    .get( ForecastController.activeForecasts );
 
 module.exports = routes;

@@ -10,7 +10,8 @@
       "TOP": "/top-performers",
       "USER_STATISTICS": "/user-statistics",
       "INSTRUMENT_STATISTICS": "/instrument-statistics",
-      "INSTRUMENTS_SEARCH": "/search-instruments-stats"
+      "INSTRUMENTS_SEARCH": "/search-instruments-stats",
+      "ACTIVE_FORECASTS": "/active_forecasts"
     },
     "PARAMS": {
       "ID": "/:id",
@@ -29,7 +30,8 @@
       "TOP": "/top-performers",
       "USER_STATISTICS": "/user-statistics",
       "INSTRUMENT_STATISTICS": "/instrument-statistics",
-      "INSTRUMENTS_SEARCH": "/search-instruments-stats"
+      "INSTRUMENTS_SEARCH": "/search-instruments-stats",
+      "ACTIVE_FORECASTS": "/active_forecasts"
     },
     "PARAMS": {
       "ID": "/:id",
@@ -48,7 +50,8 @@
       "TOP": "/top-performers",
       "USER_STATISTICS": "/user-statistics",
       "INSTRUMENT_STATISTICS": "/instrument-statistics",
-      "INSTRUMENTS_SEARCH": "/search-instruments-stats"
+      "INSTRUMENTS_SEARCH": "/search-instruments-stats",
+      "ACTIVE_FORECASTS": "/active_forecasts"
     },
     "PARAMS": {
       "ID": "/:id",
