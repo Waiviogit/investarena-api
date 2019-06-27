@@ -18,6 +18,7 @@ module.exports = {
 
     deploy : {
         production : {
+            key: '/home/eugene/.ssh/waivio.pem',
             user : 'admin',
             host : '35.157.207.192',
             ref  : 'origin/master',
