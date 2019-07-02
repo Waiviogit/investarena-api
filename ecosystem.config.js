@@ -27,7 +27,7 @@ module.exports = {
             path : '/home/admin/investarena-api',
             'post-deploy' : 'npm install && pm2 startOrRestart ecosystem.config.js --env production'
         },
-        staging : {
+		staging : {
             user : 'admin',
             host : '35.157.207.192',
             ref  : 'origin/master',
