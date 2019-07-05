@@ -12,7 +12,7 @@ const getForecastsByAuthor = async function getForecastsByAuthor(userName) {
 
 const getActiveForecasts = async( data ) => {
     const name = data.name ? data.name : '*';
-    const forecasts = await getForecasts( {name: name, currency: data.currency} );
+    const forecasts = await getForecasts( {name: name, quote: data.quote} );
 
     return { forecasts: forecasts };
 };
