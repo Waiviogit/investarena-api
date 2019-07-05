@@ -20,6 +20,7 @@ module.exports = {
 
     deploy : {
         production : {
+            key: '/home/eugene/.ssh/waivio-prod-rsa',
             user : 'admin',
             host : '157.230.93.18',
             ref  : 'origin/master',
