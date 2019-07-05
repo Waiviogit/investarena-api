@@ -6,7 +6,7 @@ const getForecasts = async ( data ) => {
     for (const key of keys) {
         if(!key.includes(':expire:')){
             const forecast = JSON.parse(await forecasts.getAsync(key));
-            if(forecast.security === data.currency || !data.currency){
+            if(forecast.security === data.quote || !data.quote){
                 res.push(forecast);
             }
         }
