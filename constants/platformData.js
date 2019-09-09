@@ -36,7 +36,9 @@ const tradingPlatformURI = platform => `https://${domainPlatform[platform]}/logi
 const setTokenURI = platform => `https://${domainPlatform[platform]}/auth/set`;
 
 const authorisationPrefix = {
-    maximarkets: 'maxi..', umarkets: '', maxitrade: "",
+    maximarkets: 'maxi..',
+    umarkets: '',
+    maxitrade: "",
     tradeallcrypto: "",
     tradiva: "",
     "770capital": "",
@@ -44,7 +46,16 @@ const authorisationPrefix = {
     limefx: ""
 };
 
-const linkID = {maximarkets: 'investarena-mm', umarkets: 'investarena-um'};
+const linkID = {
+    maximarkets: 'investarena-mm',
+    umarkets: 'investarena-um',
+    maxitrade: "investarena-mt",
+    tradeallcrypto: "investarena-tc",
+    tradiva: "investarena-td",
+    "770capital": "investarena-sc",
+    dowmarkets: "investarena-dm",
+    limefx: "investarena-lf"
+};
 
 
 module.exports = {
