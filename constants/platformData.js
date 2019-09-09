@@ -1,10 +1,22 @@
 const domainPlatform = {
     maximarkets: "trading.maximarkets.org",
-    umarkets: "trading.umarkets.com"
+    umarkets: "trading.umarkets.com",
+    maxitrade: "trading.maxitrade.com",
+    tradeallcrypto: "trading.tradeallcrypto.com",
+    tradiva: "trading.tradiva.com",
+    "770capital": "trading.770capital.com",
+    dowmarkets: "trading.dowmarkets.com",
+    limefx: "trading.limefx.com"
 };
 const domainCRM = {
     maximarkets: "publicapi.maximarkets.org",
-    umarkets: "api.umarkets.com"
+    umarkets: "api.umarkets.com",
+    maxitrade: "api.maxitrade.com",
+    tradeallcrypto: "api.tradeallcrypto.com",
+    tradiva: "api.tradiva.com",
+    "770capital": "api.770capital.com",
+    dowmarkets: "api.dowmarkets.com",
+    limefx: "api.limefx.com"
 };
 
 const registrationURI = platform => `https://${domainCRM[platform]}/registration/full`;
@@ -23,9 +35,16 @@ const tradingPlatformURI = platform => `https://${domainPlatform[platform]}/logi
 
 const setTokenURI = platform => `https://${domainPlatform[platform]}/auth/set`;
 
-const authorisationPrefix = { maximarkets: 'maxi..', umarkets: ''};
+const authorisationPrefix = {
+    maximarkets: 'maxi..', umarkets: '', maxitrade: "",
+    tradeallcrypto: "",
+    tradiva: "",
+    "770capital": "",
+    dowmarkets: "",
+    limefx: ""
+};
 
-const linkID = { maximarkets: 'investarena-mm', umarkets: 'investarena-um' };
+const linkID = {maximarkets: 'investarena-mm', umarkets: 'investarena-um'};
 
 
 module.exports = {
