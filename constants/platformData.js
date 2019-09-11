@@ -31,8 +31,6 @@ const getPlatformTokenURI = platform => `https://${domainPlatform[platform]}/aut
 
 const tradingPlatformURI = platform => `https://${domainPlatform[platform]}/login.html`;
 
-// const accountLeadURI = platform => `https://${domainPlatform[platform]}/Account/lead`;
-
 const setTokenURI = platform => `https://${domainPlatform[platform]}/auth/set`;
 
 const authorisationPrefix = {
