@@ -48,7 +48,7 @@ function getStatsByPeriods(forecasts) {
  */
 function uniqStatisticValues(stat) {
     const uniqValuesStat = { ...stat };
-    for(let i = 1; i < periods.length; i += 1) {
+    for(let i = 0; i < periods.length; i += 1) {
         if (!stat[periods[i]] || stat[periods[i]] === stat[periods[i - 1]]) {
             delete uniqValuesStat[periods[i]];
         }
