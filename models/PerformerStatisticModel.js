@@ -1,13 +1,14 @@
 const PerformerStatistic = require('../database').models.PerformerStatistic;
 const { periods, performerTypes } = require('../constants/performerStatistic');
 const { asyncForEach } = require('../utilities/helpers/common');
+const { uniqStatisticValues } = require('../utilities/helpers/forecastStatisticsHelper');
 
-const getUserStatistic = async function getUserStatisticByName(userName) { // todo: use findOne? - sync with front
+const getUserStatistic = async function getUserStatisticByName(userName) {
     try {
         const userStatistic = await PerformerStatistic
-            .find({ id: userName, type: performerTypes.USER }, '-avatar -id -_id -__v')
+            .findOne({ id: userName, type: performerTypes.USER }, '-avatar -id -_id -__v')
             .lean();
-        return { userStatistic };
+        return { userStatistic: uniqStatisticValues(userStatistic) };
     } catch (error) {
         return { error };
     }
@@ -35,8 +36,8 @@ const getTopPerformersByPeriod = async function getTopPerformersByPeriod( period
         const result = await PerformerStatistic
             .find({}, `${period} name avatar type id -_id`)
             .sort({ [period]: -1 })
-            .limit(limit)
             .skip(skip)
+            .limit(limit)
             .lean();
         return { result };
     } catch (error) {
