@@ -1,3 +1,5 @@
+const { periods } = require('../../constants/performerStatistic');
+
 function getDatePoints() {
     const daysAgoPoints = [ 1, 7 ];
     const monthsAgoPoints = [ 1, 3, 6, 12, 24 ];
@@ -38,6 +40,23 @@ function getStatsByPeriods(forecasts) {
     return datePoints;
 }
 
+/** function filters statistic values
+ * if value for period is the same as previous one - remove it
+ * example:
+ *   input:  { d1: 1, d7: 1, m1: 1, m3: 1, m6: 2, m12: 3, m24: 3, name: 'usr', type: 'user' }
+ *   output: { d1: 1, m6: 2, m12: 3, name: 'usr', type: 'user' };
+ */
+function uniqStatisticValues(stat) {
+    const uniqValuesStat = { ...stat };
+    for(let i = 1; i < periods.length; i += 1) {
+        if (stat[periods[i]] === stat[periods[i - 1]]) {
+            delete uniqValuesStat[periods[i]];
+        }
+    }
+    return uniqValuesStat;
+}
+
 module.exports = {
     getStatsByPeriods,
+    uniqStatisticValues,
 };
