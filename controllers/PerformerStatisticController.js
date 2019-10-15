@@ -26,7 +26,14 @@ const getInstrumentStats = async function (req, res, next) {
 };
 
 const getTopPerformersForPeriod = async function (req, res, next) {
-    const { result, error } = await getTopPerformersByPeriod(req.params.period, req.query.limit, req.query.skip);
+    const value = validators.validate( {
+        period: req.params.period,
+        limit: req.query.limit,
+        skip: req.query.skip,
+    }, validators.performerStatistic.getTopPerformersForPeriodSchema, next );
+    if(!value) return;
+
+    const { result, error } = await getTopPerformersByPeriod( value );
     if(error) {
         return next( error );
     }
@@ -42,13 +49,16 @@ const getTopPerformersList = async function (req, res, next) {
 };
 
 const searchInstrumentsStatistic = async function (req, res, next) {
-    const { result, error } = await searchPerformersByName(
-        req.params.name,
-        decodeURIComponent(performerTypes.INSTRUMENT),
-        req.query.limit
-    );
-    if(error) {
-        return next( error );
+    const value = validators.validate({
+        searchString: req.params.name,
+        performerType: performerTypes.INSTRUMENT,
+        limit: req.query.limit,
+    }, validators.performerStatistic.searchInstrumentsStatisticSchema, next);
+    if (!value) return;
+
+    const {result, error} = await searchPerformersByName(value);
+    if (error) {
+        return next(error);
     }
     res.status(200).json(result);
 };
