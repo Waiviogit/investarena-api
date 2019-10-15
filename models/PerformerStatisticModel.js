@@ -1,7 +1,8 @@
-const PerformerStatistic = require('../database').models.PerformerStatistic;
+const {PerformerStatistic, Forecast} = require('../database').models;
 const { periods, performerTypes } = require('../constants/performerStatistic');
 const { asyncForEach } = require('../utilities/helpers/common');
 const { uniqStatisticValues } = require('../utilities/helpers/forecastStatisticsHelper');
+const defaultSearchPerformersLimit = 10;
 
 const getUserStatistic = async function getUserStatisticByName(userName) {
     try {
@@ -62,7 +63,6 @@ const getTopPerformersForAllPeriods = async function getTopPerformersForAllPerio
     }
 };
 
-const defaultSearchPerformersLimit = 10;
 const searchPerformersByName = async function searchPerformers(searchString, performerType, queryLimit = defaultSearchPerformersLimit ) {
     try {
         const type = Boolean(performerType) && Object.values(performerTypes).includes(performerType)
@@ -80,10 +80,26 @@ const searchPerformersByName = async function searchPerformers(searchString, per
     }
 };
 
+const getInstrumentTopPerformers = async ({quote, limit}) => {
+    try {
+        const result = await Forecast.aggregate([
+            { $match:{ quote }},
+            { $group:{ _id: '$author', totalProfitability: { $sum:'$profitabilityPercent' } } },
+            { $sort: { totalProfitability: -1 } },
+            { $limit: limit },
+            { $project:{ user:'$_id', totalProfitability: 1, _id: 0 } }
+        ]);
+        return { result }
+    } catch ( error ) {
+        return { error };
+    }
+};
+
 module.exports = {
     getUserStatistic,
     getInstrumentStatistic,
     getTopPerformersByPeriod,
     getTopPerformersForAllPeriods,
     searchPerformersByName,
+    getInstrumentTopPerformers
 };

@@ -5,7 +5,9 @@ const {
     getTopPerformersByPeriod,
     getTopPerformersForAllPeriods,
     searchPerformersByName,
+    getInstrumentTopPerformers
 } = require('../models/PerformerStatisticModel');
+const validators = require( './validators' );
 
 const getUserForecastStats = async function (req, res, next) {
     const { userStatistic, error } = await getUserStatistic(req.params.name);
@@ -48,7 +50,22 @@ const searchInstrumentsStatistic = async function (req, res, next) {
     if(error) {
         return next( error );
     }
-    res.status(200).json(result);};
+    res.status(200).json(result);
+};
+
+const getInstrumentPerformers = async function (req, res, next) {
+    const value = validators.validate( {
+        limit: req.query.limit,
+        quote: req.params.quote,
+    }, validators.performerStatistic.getInstrumentPerformersSchema, next );
+    if(!value) return;
+
+    const { result, error } = await getInstrumentTopPerformers( value );
+    if(error) {
+        return next( error );
+    }
+    res.status(200).json(result);
+};
 
 module.exports = {
     getUserForecastStats,
@@ -56,4 +73,5 @@ module.exports = {
     getTopPerformersForPeriod,
     getTopPerformersList,
     searchInstrumentsStatistic,
+    getInstrumentPerformers
 };
