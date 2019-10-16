@@ -11,12 +11,14 @@
       "USER_STATISTICS": "/user-statistics",
       "INSTRUMENT_STATISTICS": "/instrument-statistics",
       "INSTRUMENTS_SEARCH": "/search-instruments-stats",
-      "ACTIVE_FORECASTS": "/active_forecasts"
+      "ACTIVE_FORECASTS": "/active_forecasts",
+      "INSTRUMENT_PERFORMERS": "/instrument-performers"
     },
     "PARAMS": {
       "ID": "/:id",
       "NAME": "/:name",
-      "PERIOD": "/:period"
+      "PERIOD": "/:period",
+      "QUOTE": "/:quote"
     }
   },
   "staging": {
@@ -31,12 +33,14 @@
       "USER_STATISTICS": "/user-statistics",
       "INSTRUMENT_STATISTICS": "/instrument-statistics",
       "INSTRUMENTS_SEARCH": "/search-instruments-stats",
-      "ACTIVE_FORECASTS": "/active_forecasts"
+      "ACTIVE_FORECASTS": "/active_forecasts",
+      "INSTRUMENT_PERFORMERS": "/instrument-performers"
     },
     "PARAMS": {
       "ID": "/:id",
       "NAME": "/:name",
-      "PERIOD": "/:period"
+      "PERIOD": "/:period",
+      "QUOTE": "/:quote"
     }
   },
   "development": {
@@ -51,12 +55,14 @@
       "USER_STATISTICS": "/user-statistics",
       "INSTRUMENT_STATISTICS": "/instrument-statistics",
       "INSTRUMENTS_SEARCH": "/search-instruments-stats",
-      "ACTIVE_FORECASTS": "/active_forecasts"
+      "ACTIVE_FORECASTS": "/active_forecasts",
+      "INSTRUMENT_PERFORMERS": "/instrument-performers"
     },
     "PARAMS": {
       "ID": "/:id",
       "NAME": "/:name",
-      "PERIOD": "/:period"
+      "PERIOD": "/:period",
+      "QUOTE": "/:quote"
     }
   }
 }
