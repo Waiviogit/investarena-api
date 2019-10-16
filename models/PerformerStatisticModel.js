@@ -8,6 +8,9 @@ const getUserStatistic = async function getUserStatisticByName(userName) {
         const userStatistic = await PerformerStatistic
             .findOne({ id: userName, type: performerTypes.USER }, '-avatar -id -_id -__v')
             .lean();
+        if (!userStatistic) {
+            return { error: { status: 404, message: `${userName} do not have any stat`}};
+        }
         return { userStatistic: uniqStatisticValues(userStatistic) };
     } catch (error) {
         return { error };
