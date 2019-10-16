@@ -47,13 +47,16 @@ function getStatsByPeriods(forecasts) {
  *   output: { d1: 1, m6: 2, m12: 3, name: 'usr', type: 'user' };
  */
 function uniqStatisticValues(stat) {
-    const uniqValuesStat = { ...stat };
-    for(let i = 0; i < periods.length; i += 1) {
-        if (!stat[periods[i]] || stat[periods[i]] === stat[periods[i - 1]]) {
-            delete uniqValuesStat[periods[i]];
+    if (stat) {
+        const uniqValuesStat = {...stat};
+        for (let i = 0; i < periods.length; i += 1) {
+            if (!stat[periods[i]] || stat[periods[i]] === stat[periods[i - 1]]) {
+                delete uniqValuesStat[periods[i]];
+            }
         }
+        return uniqValuesStat;
     }
-    return uniqValuesStat;
+    return null;
 }
 
 module.exports = {
