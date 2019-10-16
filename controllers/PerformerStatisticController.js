@@ -5,7 +5,9 @@ const {
     getTopPerformersByPeriod,
     getTopPerformersForAllPeriods,
     searchPerformersByName,
+    getInstrumentTopPerformers
 } = require('../models/PerformerStatisticModel');
+const validators = require( './validators' );
 
 const getUserForecastStats = async function (req, res, next) {
     const { userStatistic, error } = await getUserStatistic(req.params.name);
@@ -24,7 +26,14 @@ const getInstrumentStats = async function (req, res, next) {
 };
 
 const getTopPerformersForPeriod = async function (req, res, next) {
-    const { result, error } = await getTopPerformersByPeriod(req.params.period, req.query.limit, req.query.skip);
+    const value = validators.validate( {
+        period: req.params.period,
+        limit: req.query.limit,
+        skip: req.query.skip,
+    }, validators.performerStatistic.getTopPerformersForPeriodSchema, next );
+    if(!value) return;
+
+    const { result, error } = await getTopPerformersByPeriod( value );
     if(error) {
         return next( error );
     }
@@ -40,15 +49,33 @@ const getTopPerformersList = async function (req, res, next) {
 };
 
 const searchInstrumentsStatistic = async function (req, res, next) {
-    const { result, error } = await searchPerformersByName(
-        req.params.name,
-        decodeURIComponent(performerTypes.INSTRUMENT),
-        req.query.limit
-    );
+    const value = validators.validate({
+        searchString: req.params.name,
+        performerType: performerTypes.INSTRUMENT,
+        limit: req.query.limit,
+    }, validators.performerStatistic.searchInstrumentsStatisticSchema, next);
+    if (!value) return;
+
+    const {result, error} = await searchPerformersByName(value);
+    if (error) {
+        return next(error);
+    }
+    res.status(200).json(result);
+};
+
+const getInstrumentPerformers = async function (req, res, next) {
+    const value = validators.validate( {
+        limit: req.query.limit,
+        quote: req.params.quote,
+    }, validators.performerStatistic.getInstrumentPerformersSchema, next );
+    if(!value) return;
+
+    const { result, error } = await getInstrumentTopPerformers( value );
     if(error) {
         return next( error );
     }
-    res.status(200).json(result);};
+    res.status(200).json(result);
+};
 
 module.exports = {
     getUserForecastStats,
@@ -56,4 +83,5 @@ module.exports = {
     getTopPerformersForPeriod,
     getTopPerformersList,
     searchInstrumentsStatistic,
+    getInstrumentPerformers
 };
