@@ -14,6 +14,6 @@ module.exports = {
     Mongoose: mongoose,
     models: {
         Forecast: require('./schemas/ForecastSchema'),
-        PerformerStatistic: require('./schemas/PerformerStatisticSchema'),
-    },
+        PerformerStatistic: require('./schemas/PerformerStatisticSchema')
+    }
 };

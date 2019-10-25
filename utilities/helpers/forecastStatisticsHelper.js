@@ -7,34 +7,34 @@ function getDatePoints() {
     const dateNow = new Date();
 
     daysAgoPoints.forEach(daysAmount =>
-        dates[`d${daysAmount}`] = new Date().setUTCDate(dateNow.getUTCDate() - daysAmount)
+        dates[ `d${daysAmount}` ] = new Date().setUTCDate(dateNow.getUTCDate() - daysAmount)
     );
     monthsAgoPoints.forEach(monthsAmount =>
-        dates[`m${monthsAmount}`] = new Date().setUTCMonth(dateNow.getUTCMonth() - monthsAmount)
+        dates[ `m${monthsAmount}` ] = new Date().setUTCMonth(dateNow.getUTCMonth() - monthsAmount)
     );
     return dates;
 }
 
 function getStatsByPeriods(forecasts) {
     if (!(forecasts && forecasts.length)) return [];
-    const data = [...forecasts];
+    const data = [ ...forecasts ];
     const datePoints = getDatePoints();
 
     let initProfitability = 0;
     Object.keys(datePoints).forEach(pastDate => {
         const currPeriodForecasts = [];
 
-        let index = data.findIndex(forecast => forecast.createdAt >= datePoints[pastDate]);
+        let index = data.findIndex(forecast => forecast.createdAt >= datePoints[ pastDate ]);
         while (index >= 0) {
-            currPeriodForecasts.push(data[index]);
+            currPeriodForecasts.push(data[ index ]);
             data.splice(index, 1);
-            index = data.findIndex(forecast => forecast.createdAt >= datePoints[pastDate]);
+            index = data.findIndex(forecast => forecast.createdAt >= datePoints[ pastDate ]);
         }
-        datePoints[pastDate] = Number.parseFloat(currPeriodForecasts.reduce(
+        datePoints[ pastDate ] = Number.parseFloat(currPeriodForecasts.reduce(
             (acc, curr) => (acc + curr.profitabilityPercent),
             Number.parseFloat(initProfitability.toFixed(3)),
         ).toFixed(3));
-        initProfitability = datePoints[pastDate];
+        initProfitability = datePoints[ pastDate ];
     });
 
     return datePoints;
@@ -48,10 +48,10 @@ function getStatsByPeriods(forecasts) {
  */
 function uniqStatisticValues(stat) {
     if (stat) {
-        const uniqValuesStat = {...stat};
+        const uniqValuesStat = { ...stat };
         for (let i = 0; i < periods.length; i += 1) {
-            if (!stat[periods[i]] || stat[periods[i]] === stat[periods[i - 1]]) {
-                delete uniqValuesStat[periods[i]];
+            if (!stat[ periods[ i ] ] || stat[ periods[ i ] ] === stat[ periods[ i - 1 ] ]) {
+                delete uniqValuesStat[ periods[ i ] ];
             }
         }
         return uniqValuesStat;
@@ -61,5 +61,5 @@ function uniqStatisticValues(stat) {
 
 module.exports = {
     getStatsByPeriods,
-    uniqStatisticValues,
+    uniqStatisticValues
 };

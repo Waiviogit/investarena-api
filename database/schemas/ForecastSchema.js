@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 
 const ForecastSchema = new mongoose.Schema({
     id: {
-        type: String, required: true, index: true, unique: true,
+        type: String, required: true, index: true, unique: true
     },
     author: {
-        type: String, required: true, index: true, unique: false,
+        type: String, required: true, index: true, unique: false
     },
     permlink: { type: String, required: true },
     quote: { type: String, lowercase: true, required: true },
@@ -15,7 +15,7 @@ const ForecastSchema = new mongoose.Schema({
         id: { type: String },
         expiredAt: { type: Date },
         profitability: { type: Number, required: true, default: 0 },
-        bars: [{
+        bars: [ {
             closeAsk: { type: Number },
             closeBid: { type: Number },
             highAsk: { type: Number },
@@ -24,22 +24,22 @@ const ForecastSchema = new mongoose.Schema({
             lowBid: { type: Number },
             openAsk: { type: Number },
             openBid: { type: Number },
-            time: { type: Number },
-        }],
+            time: { type: Number }
+        } ],
         rate: {
             quote: {
                 security: { type: String, required: true },
                 bidPrice: { type: String },
                 askPrice: { type: String },
                 expiredByTime: { type: Boolean },
-                timeScale: { type: String },
+                timeScale: { type: String }
             },
-            cross_rate: { type: Number, default: null },
-        },
-    },
+            cross_rate: { type: Number, default: null }
+        }
+    }
 },
 {
-    toObject: { virtuals: true }, timestamps: true,
+    toObject: { virtuals: true }, timestamps: true
 });
 
 

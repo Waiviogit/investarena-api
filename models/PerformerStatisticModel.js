@@ -1,4 +1,4 @@
-const {PerformerStatistic, Forecast} = require('../database').models;
+const { PerformerStatistic, Forecast } = require('../database').models;
 const { periods, performerTypes } = require('../constants/performerStatistic');
 const { asyncForEach } = require('../utilities/helpers/common');
 const { uniqStatisticValues } = require('../utilities/helpers/forecastStatisticsHelper');
@@ -9,7 +9,7 @@ const getUserStatistic = async function getUserStatisticByName(userName) {
             .findOne({ id: userName, type: performerTypes.USER }, '-avatar -id -_id -__v')
             .lean();
         if (!userStatistic) {
-            return { error: { status: 404, message: `${userName} do not have any stat`}};
+            return { error: { status: 404, message: `${userName} do not have any stat` } };
         }
         return { userStatistic: uniqStatisticValues(userStatistic) };
     } catch (error) {
@@ -32,7 +32,7 @@ const getTopPerformersByPeriod = async function getTopPerformersByPeriod({ perio
     try {
         const result = await PerformerStatistic
             .find({}, `${period} name avatar type id -_id`)
-            .sort({ [period]: -1 })
+            .sort({ [ period ]: -1 })
             .skip(skip)
             .limit(limit)
             .lean();
@@ -46,11 +46,11 @@ const getTopPerformersForAllPeriods = async function getTopPerformersForAllPerio
     try {
         const result = {};
         await asyncForEach(periods, async period => {
-            const { error:getPeriodStatErr, result:statForPeriod} = await getTopPerformersByPeriod({period, limit:5});
+            const { error: getPeriodStatErr, result: statForPeriod } = await getTopPerformersByPeriod({ period, limit: 5 });
             if(getPeriodStatErr) {
                 return { error: getPeriodStatErr };
             }
-            result[period] = statForPeriod;
+            result[ period ] = statForPeriod;
         });
         return { result };
 
@@ -61,9 +61,7 @@ const getTopPerformersForAllPeriods = async function getTopPerformersForAllPerio
 
 const searchPerformersByName = async function searchPerformers({ searchString, performerType, limit = 10 }) {
     try {
-        const type = Boolean(performerType) && Object.values(performerTypes).includes(performerType)
-            ? performerType
-            : /.+/;
+        const type = Boolean(performerType) && Object.values(performerTypes).includes(performerType) ? performerType : /.+/;
         const result = await PerformerStatistic
             .find({ name: { $regex: `\\b${searchString}.*\\b`, $options: 'i' }, type }, '-_id -__v')
             .sort({ name: 1 })
@@ -75,17 +73,17 @@ const searchPerformersByName = async function searchPerformers({ searchString, p
     }
 };
 
-const getInstrumentTopPerformers = async ({quote, limit}) => {
+const getInstrumentTopPerformers = async ({ quote, limit }) => {
     try {
         const result = await Forecast.aggregate([
-            { $match:{ quote }},
-            { $group:{ _id: '$author', totalProfitability: { $sum:'$profitabilityPercent' } } },
+            { $match: { quote } },
+            { $group: { _id: '$author', totalProfitability: { $sum: '$profitabilityPercent' } } },
             { $sort: { totalProfitability: -1 } },
             { $limit: limit },
-            { $project:{ user:'$_id', totalProfitability: 1, _id: 0 } }
+            { $project: { user: '$_id', totalProfitability: 1, _id: 0 } }
         ]);
-        return { result }
-    } catch ( error ) {
+        return { result };
+    } catch (error) {
         return { error };
     }
 };
