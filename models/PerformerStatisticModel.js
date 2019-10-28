@@ -82,7 +82,7 @@ const getInstrumentTopPerformers = async ({quote, limit}) => {
             { $group:{ _id: '$author', totalProfitability: { $sum:'$profitabilityPercent' } } },
             { $sort: { totalProfitability: -1 } },
             { $limit: limit },
-            { $project:{ user:'$_id', totalProfitability: 1, _id: 0 } }
+            { $project:{ name:'$_id', totalProfitability: 1, _id: 0 } }
         ]);
         return { result }
     } catch ( error ) {
