@@ -1,4 +1,5 @@
 const { periods } = require('../../constants/performerStatistic');
+const _ = require('lodash');
 
 function getDatePoints() {
     const daysAgoPoints = [ 1, 7 ];
@@ -7,38 +8,55 @@ function getDatePoints() {
     const dateNow = new Date();
 
     daysAgoPoints.forEach(daysAmount =>
-        dates[`d${daysAmount}`] = new Date().setUTCDate(dateNow.getUTCDate() - daysAmount)
+        dates[ `d${daysAmount}` ] = new Date().setUTCDate(dateNow.getUTCDate() - daysAmount)
     );
     monthsAgoPoints.forEach(monthsAmount =>
-        dates[`m${monthsAmount}`] = new Date().setUTCMonth(dateNow.getUTCMonth() - monthsAmount)
+        dates[ `m${monthsAmount}` ] = new Date().setUTCMonth(dateNow.getUTCMonth() - monthsAmount)
     );
     return dates;
 }
 
+/**
+ * Format input forecasts data to separated period
+ * @param forecasts{Array} Array of forecasts
+ * @returns {Array}
+ */
 function getStatsByPeriods(forecasts) {
-    if (!(forecasts && forecasts.length)) return [];
-    const data = [...forecasts];
+    if (_.isEmpty(forecasts)) return [];
+    const data = [ ...forecasts ];
     const datePoints = getDatePoints();
 
-    let initProfitability = 0;
-    Object.keys(datePoints).forEach(pastDate => {
-        const currPeriodForecasts = [];
+    let initProfitabilityParams = {
+        pips: 0, successful_count: 0, failed_count: 0
+    };
+    // Object.keys(datePoints).forEach((pastDate) => {
 
-        let index = data.findIndex(forecast => forecast.createdAt >= datePoints[pastDate]);
+    for (const pastDate of Object.keys(datePoints)) {
+        const currPeriodForecasts = [];
+        // find index of forecast current period (index or -1 if it not exist)
+        // push all forecast by specified period to array
+        let index = data.findIndex(forecast => forecast.createdAt >= datePoints[ pastDate ]);
         while (index >= 0) {
-            currPeriodForecasts.push(data[index]);
+            currPeriodForecasts.push(data[ index ]);
             data.splice(index, 1);
-            index = data.findIndex(forecast => forecast.createdAt >= datePoints[pastDate]);
+            index = data.findIndex(forecast => forecast.createdAt >= datePoints[ pastDate ]);
         }
-        datePoints[pastDate] = Number.parseFloat(currPeriodForecasts.reduce(
-            (acc, curr) => (acc + curr.profitabilityPercent),
-            Number.parseFloat(initProfitability.toFixed(3)),
-        ).toFixed(3));
-        initProfitability = datePoints[pastDate];
-    });
+        const periodStats = currPeriodForecasts.reduce(
+            (acc, curr) => {
+                if (curr.expForecast.profitability > 0) acc.successful_count += 1;
+                else acc.failed_count += 1;
+                acc.pips += curr.expForecast.profitability;
+                return acc;
+            },
+            initProfitabilityParams,
+        );
+        datePoints[ pastDate ] = { ...periodStats };
+        initProfitabilityParams = datePoints[ pastDate ];
+    }
 
     return datePoints;
 }
+
 
 /** function filters statistic values
  * if value for period is the same as previous one - remove it
@@ -48,10 +66,10 @@ function getStatsByPeriods(forecasts) {
  */
 function uniqStatisticValues(stat) {
     if (stat) {
-        const uniqValuesStat = {...stat};
+        const uniqValuesStat = { ...stat };
         for (let i = 0; i < periods.length; i += 1) {
-            if (!stat[periods[i]] || stat[periods[i]] === stat[periods[i - 1]]) {
-                delete uniqValuesStat[periods[i]];
+            if (!stat[ periods[ i ] ] || stat[ periods[ i ] ] === stat[ periods[ i - 1 ] ]) {
+                delete uniqValuesStat[ periods[ i ] ];
             }
         }
         return uniqValuesStat;
@@ -61,5 +79,5 @@ function uniqStatisticValues(stat) {
 
 module.exports = {
     getStatsByPeriods,
-    uniqStatisticValues,
+    uniqStatisticValues
 };
