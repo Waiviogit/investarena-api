@@ -9,6 +9,7 @@
     "PERFORMERS": {
       "TOP": "/top-performers",
       "USER_STATISTICS": "/user-statistics",
+      "USER_SUMMARY_STATISTICS": "/user-summary-statistics",
       "INSTRUMENT_STATISTICS": "/instrument-statistics",
       "INSTRUMENTS_SEARCH": "/search-instruments-stats",
       "ACTIVE_FORECASTS": "/active_forecasts",
@@ -31,6 +32,7 @@
     "PERFORMERS": {
       "TOP": "/top-performers",
       "USER_STATISTICS": "/user-statistics",
+      "USER_SUMMARY_STATISTICS": "/user-summary-statistics",
       "INSTRUMENT_STATISTICS": "/instrument-statistics",
       "INSTRUMENTS_SEARCH": "/search-instruments-stats",
       "ACTIVE_FORECASTS": "/active_forecasts",
@@ -53,6 +55,7 @@
     "PERFORMERS": {
       "TOP": "/top-performers",
       "USER_STATISTICS": "/user-statistics",
+      "USER_SUMMARY_STATISTICS": "/user-summary-statistics",
       "INSTRUMENT_STATISTICS": "/instrument-statistics",
       "INSTRUMENTS_SEARCH": "/search-instruments-stats",
       "ACTIVE_FORECASTS": "/active_forecasts",
