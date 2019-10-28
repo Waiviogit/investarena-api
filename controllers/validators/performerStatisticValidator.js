@@ -17,3 +17,7 @@ exports.searchInstrumentsStatisticSchema = Joi.object().keys({
     searchString: Joi.string().required(),
     performerType: Joi.string()
 });
+
+exports.getUserSummaryForecastStats = Joi.object().keys({
+    name: Joi.string().required()
+});

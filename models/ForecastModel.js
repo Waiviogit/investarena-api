@@ -6,7 +6,7 @@ const getForecastsByAuthor = async function getForecastsByAuthor(userName) {
     date.setUTCMonth(date.getUTCMonth() - 24);
 
     return await ForecastModel
-        .find({ author: userName, createdAt: { $gte: date } }, 'quote createdAt profitabilityPercent')
+        .find({ author: userName, createdAt: { $gte: date } }, 'quote createdAt profitabilityPercent expForecast')
         .lean();
 };
 

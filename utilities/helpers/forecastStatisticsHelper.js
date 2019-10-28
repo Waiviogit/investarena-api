@@ -1,4 +1,5 @@
 const { periods } = require('../../constants/performerStatistic');
+const _ = require('lodash');
 
 function getDatePoints() {
     const daysAgoPoints = [ 1, 7 ];
@@ -15,30 +16,47 @@ function getDatePoints() {
     return dates;
 }
 
+/**
+ * Format input forecasts data to separated period
+ * @param forecasts{Array} Array of forecasts
+ * @returns {Array}
+ */
 function getStatsByPeriods(forecasts) {
-    if (!(forecasts && forecasts.length)) return [];
+    if (_.isEmpty(forecasts)) return [];
     const data = [ ...forecasts ];
     const datePoints = getDatePoints();
 
-    let initProfitability = 0;
-    Object.keys(datePoints).forEach(pastDate => {
-        const currPeriodForecasts = [];
+    let initProfitabilityParams = {
+        pips: 0, successful_count: 0, failed_count: 0
+    };
+    // Object.keys(datePoints).forEach((pastDate) => {
 
+    for (const pastDate of Object.keys(datePoints)) {
+        const currPeriodForecasts = [];
+        // find index of forecast current period (index or -1 if it not exist)
+        // push all forecast by specified period to array
         let index = data.findIndex(forecast => forecast.createdAt >= datePoints[ pastDate ]);
         while (index >= 0) {
             currPeriodForecasts.push(data[ index ]);
             data.splice(index, 1);
             index = data.findIndex(forecast => forecast.createdAt >= datePoints[ pastDate ]);
         }
-        datePoints[ pastDate ] = Number.parseFloat(currPeriodForecasts.reduce(
-            (acc, curr) => (acc + curr.profitabilityPercent),
-            Number.parseFloat(initProfitability.toFixed(3)),
-        ).toFixed(3));
-        initProfitability = datePoints[ pastDate ];
-    });
+        const periodStats = currPeriodForecasts.reduce(
+            (acc, curr) => {
+                if (curr.expForecast.profitability > 0) acc.successful_count += 1;
+                else acc.failed_count += 1;
+                acc.pips += curr.expForecast.profitability;
+                return acc;
+            },
+            initProfitabilityParams,
+        );
+        datePoints[ pastDate ] = { ...periodStats };
+        initProfitabilityParams = datePoints[ pastDate ];
+    }
 
     return datePoints;
 }
+
 
 /** function filters statistic values
  * if value for period is the same as previous one - remove it

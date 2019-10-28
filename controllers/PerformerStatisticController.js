@@ -8,6 +8,7 @@ const {
     getInstrumentTopPerformers
 } = require('../models/PerformerStatisticModel');
 const validators = require('./validators');
+const { getUserSummaryStats } = require('../utilities/helpers/userSummaryForecastStatsHelper');
 
 const getUserForecastStats = async function (req, res, next) {
     const { userStatistic, error } = await getUserStatistic(req.params.name);
@@ -77,11 +78,25 @@ const getInstrumentPerformers = async function (req, res, next) {
     res.status(200).json(result);
 };
 
+const getUserSummaryForecastStats = async (req, res, next) => {
+    const value = validators.validate({
+        name: req.params.name
+    }, validators.performerStatistic.getUserSummaryForecastStats, next);
+    if (!value) return;
+
+    const { data, error } = await getUserSummaryStats(value);
+    if (error) {
+        return next(error);
+    }
+    res.status(200).json(data);
+};
+
 module.exports = {
     getUserForecastStats,
     getInstrumentStats,
     getTopPerformersForPeriod,
     getTopPerformersList,
     searchInstrumentsStatistic,
-    getInstrumentPerformers
+    getInstrumentPerformers,
+    getUserSummaryForecastStats
 };
