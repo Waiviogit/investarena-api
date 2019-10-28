@@ -78,7 +78,7 @@ const searchPerformersByName = async function searchPerformers({ searchString, p
 const getInstrumentTopPerformers = async ({quote, limit}) => {
     try {
         const result = await Forecast.aggregate([
-            { $match:{ quote }},
+            { $match:{ 'expForecast.rate.quote.security': quote }},
             { $group:{ _id: '$author', totalProfitability: { $sum:'$profitabilityPercent' } } },
             { $sort: { totalProfitability: -1 } },
             { $limit: limit },
