@@ -2,7 +2,7 @@ const urlConfig = require('../etc');
 
 const {
     ForecastController,
-    PerformerStatisticController,
+    PerformerStatisticController
 } = require('../controllers');
 
 const { platform } = require('../platform');
@@ -28,6 +28,9 @@ routes
     .route(`${urlConfig.PERFORMERS.USER_STATISTICS}${urlConfig.PARAMS.NAME}`) // /user-statistics/:name
     .get(PerformerStatisticController.getUserForecastStats);
 routes
+    .route(`${urlConfig.PERFORMERS.USER_SUMMARY_STATISTICS}${urlConfig.PARAMS.NAME}`) // /user-summary-statistics/:name
+    .get(PerformerStatisticController.getUserSummaryForecastStats);
+routes
     .route(`${urlConfig.PERFORMERS.INSTRUMENT_STATISTICS}${urlConfig.PARAMS.ID}`) // /instrument-statistics/:id
     .get(PerformerStatisticController.getInstrumentStats);
 routes
@@ -40,8 +43,8 @@ routes
     .route(`${urlConfig.PERFORMERS.INSTRUMENTS_SEARCH}${urlConfig.PARAMS.NAME}`)
     .get(PerformerStatisticController.searchInstrumentsStatistic); // /search-instruments-stats/:name[?limit=10]
 routes
-    .route( urlConfig.PERFORMERS.ACTIVE_FORECASTS)
-    .get( ForecastController.activeForecasts );
+    .route(urlConfig.PERFORMERS.ACTIVE_FORECASTS)
+    .get(ForecastController.activeForecasts);
 routes
     .route(`${urlConfig.PERFORMERS.INSTRUMENT_PERFORMERS}${urlConfig.PARAMS.QUOTE}`)
     .get(PerformerStatisticController.getInstrumentPerformers); // /instrument-performers/:quote?limit=3
