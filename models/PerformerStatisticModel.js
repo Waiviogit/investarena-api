@@ -76,11 +76,11 @@ const searchPerformersByName = async function searchPerformers({ searchString, p
 const getInstrumentTopPerformers = async ({ quote, limit }) => {
     try {
         const result = await Forecast.aggregate([
-            { $match: { quote } },
-            { $group: { _id: '$author', totalProfitability: { $sum: '$profitabilityPercent' } } },
+            { $match:{ 'expForecast.rate.quote.security': quote }},
+            { $group:{ _id: '$author', totalProfitability: { $sum:'$profitabilityPercent' } } },
             { $sort: { totalProfitability: -1 } },
             { $limit: limit },
-            { $project: { user: '$_id', totalProfitability: 1, _id: 0 } }
+            { $project:{ name:'$_id', totalProfitability: 1, _id: 0 } }
         ]);
         return { result };
     } catch (error) {
