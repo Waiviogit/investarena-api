@@ -16,11 +16,16 @@
       "ACTIVE_FORECASTS": "/active_forecasts",
       "INSTRUMENT_PERFORMERS": "/instrument-performers"
     },
+    "POSTS": {
+      "WITH_FORECAST_BY_USER": "/posts/with-forecast-by-user",
+      "WITH_FORECAST_BY_WOBJECT": "/posts/with-forecast-by-wobject"
+    },
     "PARAMS": {
       "ID": "/:id",
       "NAME": "/:name",
       "PERIOD": "/:period",
-      "QUOTE": "/:quote"
+      "QUOTE": "/:quote",
+      "AUTHOR_PERMLINK": "/:author_permlink"
     }
   },
   "staging": {
@@ -40,11 +45,16 @@
       "ACTIVE_FORECASTS": "/active_forecasts",
       "INSTRUMENT_PERFORMERS": "/instrument-performers"
     },
+    "POSTS": {
+      "WITH_FORECAST_BY_USER": "/posts/with-forecast-by-user",
+      "WITH_FORECAST_BY_WOBJECT": "/posts/with-forecast-by-wobject"
+    },
     "PARAMS": {
       "ID": "/:id",
       "NAME": "/:name",
       "PERIOD": "/:period",
-      "QUOTE": "/:quote"
+      "QUOTE": "/:quote",
+      "AUTHOR_PERMLINK": "/:author_permlink"
     }
   },
   "development": {
@@ -64,11 +74,16 @@
       "ACTIVE_FORECASTS": "/active_forecasts",
       "INSTRUMENT_PERFORMERS": "/instrument-performers"
     },
+    "POSTS": {
+      "WITH_FORECAST_BY_USER": "/posts/with-forecast-by-user",
+      "WITH_FORECAST_BY_WOBJECT": "/posts/with-forecast-by-wobject"
+    },
     "PARAMS": {
       "ID": "/:id",
       "NAME": "/:name",
       "PERIOD": "/:period",
-      "QUOTE": "/:quote"
+      "QUOTE": "/:quote",
+      "AUTHOR_PERMLINK": "/:author_permlink"
     }
   }
 }
