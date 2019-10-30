@@ -24,7 +24,7 @@ exports.getUserSummaryForecastStats = Joi.object().keys({
 
 exports.getUserInstrumentStats = Joi.object().keys({
     name: Joi.string().required(),
-    limit: Joi.number().integer().min(0).max(100).default(5),
+    limit: Joi.number().integer().min(0).max(300).default(5),
     skip: Joi.number().integer().min(0).default(0),
     sortBy: Joi.string().valid([ 'count', 'pips', 'quote' ]).default('count'),
     sortDirection: Joi.number().valid([ -1, 1 ]).default(-1)
