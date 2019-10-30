@@ -1,7 +1,7 @@
+const db = require('../waiviodb_connect');
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
-const WObjectSchema = new Schema(
+const WObjectSchema = new mongoose.Schema(
     {
         app: String,
         community: String,
@@ -56,6 +56,6 @@ const WObjectSchema = new Schema(
 WObjectSchema.index({ map: '2dsphere' });
 WObjectSchema.index({ weight: -1 });
 
-const wObjectModel = mongoose.model('wobject', WObjectSchema);
+const wObjectModel = db.model('wobject', WObjectSchema);
 
 module.exports = wObjectModel;

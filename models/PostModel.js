@@ -1,4 +1,4 @@
-const Post = require('../database/waivioDb').models.Post;
+const { Post } = require('../databaseWaivio').models;
 const DEFAULT_FORECAST_IDENTITY_KEY = 'forecast';
 
 const getWithForecastByWobject = async ({ author_permlink, skip, limit, forecastKey = DEFAULT_FORECAST_IDENTITY_KEY }) => {
