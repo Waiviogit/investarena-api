@@ -2,7 +2,8 @@ const urlConfig = require('../etc');
 
 const {
     ForecastController,
-    PerformerStatisticController
+    PerformerStatisticController,
+    PostController
 } = require('../controllers');
 
 const { platform } = require('../platform');
@@ -51,5 +52,11 @@ routes
 routes
     .route(`${urlConfig.PERFORMERS.INSTRUMENT_PERFORMERS}${urlConfig.PARAMS.QUOTE}`)
     .get(PerformerStatisticController.getInstrumentPerformers); // /instrument-performers/:quote?limit=3
+routes
+    .route(`${urlConfig.POSTS.WITH_FORECAST_BY_USER}${urlConfig.PARAMS.NAME}`)
+    .get(PostController.withForecastByUser); // /posts/with-forecast-by-user/:name
+routes
+    .route(`${urlConfig.POSTS.WITH_FORECAST_BY_WOBJECT}${urlConfig.PARAMS.AUTHOR_PERMLINK}`)
+    .get(PostController.withForecastByWobject); // /posts/with-forecast-by-wobject/:author_permlink
 
 module.exports = routes;
