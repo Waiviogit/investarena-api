@@ -2,6 +2,7 @@ const Joi = require('joi');
 
 module.exports = {
     performerStatistic: require('./performerStatisticValidator'),
+    postValidator: require('./postValidator'),
     validate: (data, schema, next) => {
         const result = Joi.validate(data, schema);
 

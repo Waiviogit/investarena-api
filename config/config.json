@@ -3,7 +3,8 @@
     "db": {
       "host": "localhost",
       "port": 27017,
-      "database": "wiaDB"
+      "database": "wiaDB",
+      "databaseWaivio": "waivio"
     },
     "redis": {
       "host": "localhost",
@@ -16,7 +17,8 @@
     "db": {
       "host": "localhost",
       "port": 27017,
-      "database": "wiaDB"
+      "database": "wiaDB",
+      "databaseWaivio": "waivio"
     },
     "redis": {
       "host": "localhost",
@@ -29,7 +31,8 @@
     "db": {
       "host": "localhost",
       "port": 27017,
-      "database": "wiaDB"
+      "database": "wiaDB",
+      "databaseWaivio": "waivio"
     },
     "redis": {
       "host": "localhost",
