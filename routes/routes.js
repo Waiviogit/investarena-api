@@ -31,6 +31,9 @@ routes
     .route(`${urlConfig.PERFORMERS.USER_SUMMARY_STATISTICS}${urlConfig.PARAMS.NAME}`) // /user-summary-statistics/:name
     .get(PerformerStatisticController.getUserSummaryForecastStats);
 routes
+    .route(`${urlConfig.PERFORMERS.USER_INSTRUMENT_STATISTICS}${urlConfig.PARAMS.NAME}`) // /user-instrument-statistics/:name
+    .get(PerformerStatisticController.getUserInstrumentStats);
+routes
     .route(`${urlConfig.PERFORMERS.INSTRUMENT_STATISTICS}${urlConfig.PARAMS.ID}`) // /instrument-statistics/:id
     .get(PerformerStatisticController.getInstrumentStats);
 routes
