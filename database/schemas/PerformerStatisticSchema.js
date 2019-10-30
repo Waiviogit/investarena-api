@@ -1,3 +1,4 @@
+const db = require('../wiadb_connect');
 const mongoose = require('mongoose');
 
 const { performerTypes } = require('../../constants/performerStatistic');
@@ -26,4 +27,4 @@ const PerformerStatisticSchema = new mongoose.Schema(
 
 PerformerStatisticSchema.index({ id: 1 }, { unique: true });
 
-module.exports = mongoose.model('PerformerStatistic', PerformerStatisticSchema);
+module.exports = db.model('PerformerStatistic', PerformerStatisticSchema);

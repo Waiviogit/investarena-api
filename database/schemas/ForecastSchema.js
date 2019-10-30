@@ -1,3 +1,4 @@
+const db = require('../wiadb_connect');
 const mongoose = require('mongoose');
 
 const ForecastSchema = new mongoose.Schema({
@@ -43,4 +44,4 @@ const ForecastSchema = new mongoose.Schema({
 });
 
 
-module.exports = mongoose.model('Forecast', ForecastSchema);
+module.exports = db.model('Forecast', ForecastSchema);

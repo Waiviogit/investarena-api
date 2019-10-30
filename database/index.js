@@ -1,18 +1,11 @@
+const wiadb = require('./wiadb_connect');
 const mongoose = require('mongoose');
-const config = require('../config');
-
-const URI = `mongodb://${config.db.host}:${config.db.port}/${config.db.database}`;
-mongoose.connect(URI, { useNewUrlParser: true, useFindAndModify: false })
-    .then(() => console.log('connection successful!'))
-    .catch(error => console.log(error));
-
-mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 mongoose.Promise = global.Promise;
-mongoose.set( 'debug', process.env.NODE_ENV === 'development' );
+mongoose.set('debug', process.env.NODE_ENV === 'development');
 
 module.exports = {
-    Mongoose: mongoose,
+    Mongoose: wiadb,
     models: {
         Forecast: require('./schemas/ForecastSchema'),
         PerformerStatistic: require('./schemas/PerformerStatisticSchema')
