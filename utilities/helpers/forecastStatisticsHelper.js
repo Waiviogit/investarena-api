@@ -56,7 +56,6 @@ function getStatsByPeriods(forecasts) {
             initProfitabilityParams,
         );
         datePoints[ pastDate ] = { ...periodStats };
-        initProfitabilityParams = datePoints[ pastDate ];
     }
 
     return datePoints;
