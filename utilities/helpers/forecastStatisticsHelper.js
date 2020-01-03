@@ -27,7 +27,7 @@ function getStatsByPeriods(forecasts) {
     const datePoints = getDatePoints();
 
     let initProfitabilityParams = {
-        pips: 0, successful_count: 0, failed_count: 0
+        pips: 0, failed_pips: 0, successful_pips: 0, successful_count: 0, failed_count: 0
     };
     // Object.keys(datePoints).forEach((pastDate) => {
 
@@ -43,15 +43,19 @@ function getStatsByPeriods(forecasts) {
         }
         const periodStats = currPeriodForecasts.reduce(
             (acc, curr) => {
-                if (curr.expForecast.profitability > 0) acc.successful_count += 1;
-                else acc.failed_count += 1;
+                if (curr.expForecast.profitability > 0) {
+                    acc.successful_count += 1;
+                    acc.successful_pips += curr.expForecast.profitability;
+                } else if(curr.expForecast.profitability < 0) {
+                    acc.failed_count += 1;
+                    acc.failed_pips += curr.expForecast.profitability;
+                }
                 acc.pips += curr.expForecast.profitability;
                 return acc;
             },
             initProfitabilityParams,
         );
         datePoints[ pastDate ] = { ...periodStats };
-        initProfitabilityParams = datePoints[ pastDate ];
     }
 
     return datePoints;
