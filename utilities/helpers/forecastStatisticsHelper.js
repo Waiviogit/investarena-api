@@ -45,12 +45,12 @@ function getStatsByPeriods(forecasts) {
             (acc, curr) => {
                 if (curr.expForecast.profitability > 0) {
                     acc.successful_count += 1;
-                    acc.successful_pips += curr.expForecast.profitability;
+                    acc.successful_pips += _.parseInt(curr.expForecast.profitability);
                 } else if(curr.expForecast.profitability < 0) {
                     acc.failed_count += 1;
-                    acc.failed_pips += curr.expForecast.profitability;
+                    acc.failed_pips += _.parseInt(curr.expForecast.profitability);
                 }
-                acc.pips += curr.expForecast.profitability;
+                acc.pips += _.parseInt(curr.expForecast.profitability);
                 return acc;
             },
             initProfitabilityParams,
