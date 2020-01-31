@@ -1,12 +1,17 @@
-const { forecasts } = require( './redis' );
+const { forecasts } = require('./redis');
 
-const getForecasts = async ( data ) => {
+const getForecasts = async (data) => {
     const res = [];
     const keys = await forecasts.keysAsync(`charts_cache:${data.name}/*`);
     for (const key of keys) {
-        if(!key.includes(':expire:')){
-            const forecast = JSON.parse(await forecasts.getAsync(key));
-            if(forecast.security === data.quote || !data.quote){
+        let forecast = {};
+        if(!key.includes(':expire:') || !key.includes(':expire_')) {
+            try{
+                forecast = JSON.parse(await forecasts.getAsync(key));
+            } catch(error) {
+                continue;
+            }
+            if(forecast.security === data.quote || !data.quote) {
                 res.push(forecast);
             }
         }
