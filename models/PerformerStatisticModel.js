@@ -46,7 +46,7 @@ const getTopPerformersForAllPeriods = async function getTopPerformersForAllPerio
     try {
         const result = {};
         await asyncForEach(periods, async period => {
-            const { error: getPeriodStatErr, result: statForPeriod } = await getTopPerformersByPeriod({ period, limit: 30 });
+            const { error: getPeriodStatErr, result: statForPeriod } = await getTopPerformersByPeriod({ period, limit: 5 });
             if(getPeriodStatErr) {
                 return { error: getPeriodStatErr };
             }
