@@ -1,0 +1,599 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "API for InvestArena \n[UI template for InvestArena](https://4cast.in)\n",
+    "version" : "1.0.0",
+    "title" : "InvestArena API",
+    "termsOfService" : "https://steemit.com/@waivio",
+    "contact" : {
+      "email" : "maxim@wizardsdev.com"
+    }
+  },
+  "host" : "investarena.waiviodev.com",
+  "tags" : [ {
+    "name" : "performer-statistics",
+    "description" : "Statistics by users and instruments"
+  }, {
+    "name" : "posts",
+    "description" : "Waivio posts"
+  } ],
+  "schemes" : [ "https" ],
+  "paths" : {
+    "/investarena-api/instrument-performers/{quote}" : {
+      "get" : {
+        "tags" : [ "performer-statistics" ],
+        "summary" : "Get top performers by intrument (waivio object)",
+        "description" : "Return list users sorted by their total profitability in particular instrument",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "quote",
+          "in" : "path",
+          "description" : "Name of InvestArena instrument",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "count of instruments to return",
+          "required" : false,
+          "type" : "number",
+          "default" : 5.0
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/inline_response_200"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/investarena-api/user-statistics/{name}" : {
+      "get" : {
+        "tags" : [ "performer-statistics" ],
+        "summary" : "Get user statistics",
+        "description" : "Return user forecast stats in percents divide by periods",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "path",
+          "description" : "Name of user",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_1"
+            }
+          }
+        }
+      }
+    },
+    "/investarena-api/user-summary-statistics/{name}" : {
+      "get" : {
+        "tags" : [ "performer-statistics" ],
+        "summary" : "Get user summary statistics",
+        "description" : "Return user forecast stats in with pips, and failed/success counts separated by periods",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "path",
+          "description" : "Name of user",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_2"
+            }
+          }
+        }
+      }
+    },
+    "/investarena-api/user-instrument-statistics/{name}" : {
+      "get" : {
+        "tags" : [ "performer-statistics" ],
+        "summary" : "Get user statistics by instruments",
+        "description" : "Return statistics of forecast user separated by instruments",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "path",
+          "description" : "Name of user",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "skip",
+          "in" : "query",
+          "description" : "Count of instruments to skip (default 0)",
+          "required" : false,
+          "type" : "number"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Count of instruments to return (default 5)",
+          "required" : false,
+          "type" : "number"
+        }, {
+          "name" : "sortBy",
+          "in" : "query",
+          "description" : "Name of field to sorting by (default 'count')",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "sortDirection",
+          "in" : "query",
+          "description" : "Direction to sorting, -1 or 1 (default -1)",
+          "required" : false,
+          "type" : "number"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/inline_response_200_3"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/investarena-api/search-instruments-stats/{searchString}" : {
+      "get" : {
+        "tags" : [ "performer-statistics" ],
+        "summary" : "Find instrument by name",
+        "description" : "Return list of instruments with their stats by name",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "searchString",
+          "in" : "path",
+          "description" : "Name or part of instrument name",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Count of instruments to return",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_4"
+            }
+          }
+        }
+      }
+    },
+    "/investarena-api/instrument-statistics/{id}" : {
+      "get" : {
+        "tags" : [ "performer-statistics" ],
+        "summary" : "Get performer stats by id",
+        "description" : "Get forecasts stat of specified user/instrument",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID of performed stats (user name or author_permlink of wobject)",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_4"
+            }
+          }
+        }
+      }
+    },
+    "/investarena-api/top-performers/{period}" : {
+      "get" : {
+        "tags" : [ "performer-statistics" ],
+        "summary" : "Get top performers by specified period",
+        "description" : "Get top performers by specified period",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "period",
+          "in" : "path",
+          "description" : "Period for ex. d1, d7, m1, m3 ... to get top performers",
+          "required" : true,
+          "type" : "string",
+          "default" : "d1"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Count of performers to return(for infinite scroll)",
+          "required" : false,
+          "type" : "number",
+          "default" : 5.0
+        }, {
+          "name" : "skip",
+          "in" : "query",
+          "description" : "Count of performers to skip(for infinite scroll)",
+          "required" : false,
+          "type" : "number",
+          "default" : 0.0
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/inline_response_200_5"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/investarena-api/top-performers" : {
+      "get" : {
+        "tags" : [ "performer-statistics" ],
+        "summary" : "Get top performers",
+        "description" : "Get top performers stats by each period",
+        "produces" : [ "application/json" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_6"
+            }
+          }
+        }
+      }
+    },
+    "/investarena-api/posts/with-forecast-by-user/{name}" : {
+      "get" : {
+        "tags" : [ "posts" ],
+        "summary" : "Get user posts with forecasts",
+        "description" : "Get waivio posts with forecasts by specified user(author)",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "path",
+          "description" : "Name of user",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "skip",
+          "in" : "query",
+          "description" : "Count of posts to skip (for infinite scroll, default 0)",
+          "required" : false,
+          "type" : "number"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Count of posts to return (for infinite scroll, default 5)",
+          "required" : false,
+          "type" : "number"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "object"
+            }
+          }
+        }
+      }
+    },
+    "/investarena-api/posts/with-forecast-by-wobject/{author_permlink}" : {
+      "get" : {
+        "tags" : [ "posts" ],
+        "summary" : "Get posts with forecasts by wobject",
+        "description" : "Get waivio posts with forecasts by specified waivio wobject",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "author_permlink",
+          "in" : "path",
+          "description" : "Identity of waivio wobject",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "skip",
+          "in" : "query",
+          "description" : "Count of posts to skip (for infinite scroll, default 0)",
+          "required" : false,
+          "type" : "number"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Count of posts to return (for infinite scroll, default 5)",
+          "required" : false,
+          "type" : "number"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "object"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "inline_response_200_2_d1" : {
+      "type" : "object",
+      "properties" : {
+        "pips" : {
+          "type" : "number"
+        },
+        "success_count" : {
+          "type" : "number"
+        },
+        "failed_count" : {
+          "type" : "number"
+        }
+      }
+    },
+    "inline_response_200_5" : {
+      "type" : "object",
+      "properties" : {
+        "avatar" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "type" : {
+          "type" : "string"
+        },
+        "id" : {
+          "type" : "string"
+        },
+        "d1" : {
+          "type" : "number"
+        },
+        "d7" : {
+          "type" : "number"
+        },
+        "m1" : {
+          "type" : "number"
+        },
+        "m3" : {
+          "type" : "number"
+        },
+        "m6" : {
+          "type" : "number"
+        },
+        "m12" : {
+          "type" : "number"
+        },
+        "m24" : {
+          "type" : "number"
+        }
+      },
+      "example" : "[{\"avatar\":\"https://waivio.nyc3.digitaloceanspaces.com/1562259467_ae2ce073-7879-47e0-b270-24087be06bb4\",\"d1\":10.953,\"name\":\"Canopy Growth\",\"id\":\"yqq-cgc\",\"type\":\"instrument\"}]"
+    },
+    "inline_response_200_6_d1" : {
+      "type" : "object",
+      "properties" : {
+        "avatar" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "type" : {
+          "type" : "string"
+        },
+        "id" : {
+          "type" : "string"
+        },
+        "d1" : {
+          "type" : "number"
+        },
+        "d7" : {
+          "type" : "number"
+        },
+        "m1" : {
+          "type" : "number"
+        },
+        "m3" : {
+          "type" : "number"
+        },
+        "m6" : {
+          "type" : "number"
+        },
+        "m12" : {
+          "type" : "number"
+        },
+        "m24" : {
+          "type" : "number"
+        }
+      }
+    },
+    "inline_response_200_6" : {
+      "type" : "object",
+      "properties" : {
+        "d1" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/inline_response_200_6_d1"
+          }
+        },
+        "d7" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/inline_response_200_6_d1"
+          }
+        },
+        "m1" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/inline_response_200_6_d1"
+          }
+        },
+        "m3" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/inline_response_200_6_d1"
+          }
+        },
+        "m6" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/inline_response_200_6_d1"
+          }
+        },
+        "m12" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/inline_response_200_6_d1"
+          }
+        },
+        "m24" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/inline_response_200_6_d1"
+          }
+        }
+      }
+    },
+    "inline_response_200_1" : {
+      "type" : "object",
+      "properties" : {
+        "d1" : {
+          "type" : "number"
+        },
+        "d7" : {
+          "type" : "number"
+        },
+        "m1" : {
+          "type" : "number"
+        },
+        "m3" : {
+          "type" : "number"
+        },
+        "m6" : {
+          "type" : "number"
+        },
+        "m12" : {
+          "type" : "number"
+        },
+        "m24" : {
+          "type" : "number"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "type" : {
+          "type" : "string"
+        }
+      }
+    },
+    "inline_response_200" : {
+      "type" : "object",
+      "properties" : {
+        "name" : {
+          "type" : "string"
+        },
+        "totalProfitability" : {
+          "type" : "number"
+        }
+      }
+    },
+    "inline_response_200_2" : {
+      "type" : "object",
+      "properties" : {
+        "d1" : {
+          "$ref" : "#/definitions/inline_response_200_2_d1"
+        },
+        "d7" : {
+          "$ref" : "#/definitions/inline_response_200_2_d1"
+        },
+        "m1" : {
+          "$ref" : "#/definitions/inline_response_200_2_d1"
+        },
+        "m3" : {
+          "$ref" : "#/definitions/inline_response_200_2_d1"
+        },
+        "m6" : {
+          "$ref" : "#/definitions/inline_response_200_2_d1"
+        },
+        "m12" : {
+          "$ref" : "#/definitions/inline_response_200_2_d1"
+        },
+        "m24" : {
+          "$ref" : "#/definitions/inline_response_200_2_d1"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "type" : {
+          "type" : "string"
+        }
+      }
+    },
+    "inline_response_200_3" : {
+      "type" : "object",
+      "properties" : {
+        "count" : {
+          "type" : "number"
+        },
+        "quote" : {
+          "type" : "string"
+        },
+        "pips" : {
+          "type" : "number"
+        }
+      }
+    },
+    "inline_response_200_4" : {
+      "type" : "object",
+      "properties" : {
+        "d1" : {
+          "type" : "number"
+        },
+        "d7" : {
+          "type" : "number"
+        },
+        "m1" : {
+          "type" : "number"
+        },
+        "m3" : {
+          "type" : "number"
+        },
+        "m6" : {
+          "type" : "number"
+        },
+        "m12" : {
+          "type" : "number"
+        },
+        "m24" : {
+          "type" : "number"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "type" : {
+          "type" : "string"
+        },
+        "id" : {
+          "type" : "string"
+        },
+        "avatar" : {
+          "type" : "string"
+        }
+      }
+    }
+  }
+}
