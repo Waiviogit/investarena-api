@@ -1,13 +1,20 @@
 const ForecastModel = require('../database').models.Forecast;
 const { getForecasts } = require('../utilities/redis/redisGetter');
+const quote = require('../api/quotes');
 
 const getForecastsByAuthor = async (userName) => {
     const date = new Date();
     date.setUTCMonth(date.getUTCMonth() - 24);
-
-    return await ForecastModel
-        .find({ author: userName, createdAt: { $gte: date } }, 'quote createdAt profitabilityPercent expForecast')
-        .lean();
+    const { quoteNames, error } = await quote.getValidQuoteNames();
+    if (error) return { error };
+    return{ result: await ForecastModel
+        .find({
+            author: userName,
+            createdAt: { $gte: date },
+            'expForecast.rate.quote.security': { $in: quoteNames }
+        },
+        'quote createdAt profitabilityPercent expForecast')
+        .lean() };
 };
 
 const getActiveForecasts = async (data) => {

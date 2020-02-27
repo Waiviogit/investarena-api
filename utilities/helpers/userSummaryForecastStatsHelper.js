@@ -1,10 +1,13 @@
+const _ = require('lodash');
 const { Forecast } = require('../../models');
 const { getStatsByPeriods } = require('./forecastStatisticsHelper');
+const quotes = require('../../api/quotes');
 
 const getUserSummaryStats = async ({ name }) => {
     try {
-        const forecasts = await Forecast.getForecastsByAuthor(name);
-        return { data: getStatsByPeriods(forecasts) };
+        const { error, result } = await Forecast.getForecastsByAuthor(name);
+        if (error) return { error };
+        return { data: getStatsByPeriods(result) };
     } catch (error) {
         return { error };
     }
@@ -13,7 +16,10 @@ const getUserSummaryStats = async ({ name }) => {
 const getStatsByInstruments = async ({ name, limit, skip, sortBy, sortDirection }) => {
     const { result, error } = await Forecast.fromAggregation(getStatsByInstrumentPipeline({ name, limit, skip, sortBy, sortDirection }));
     if(error) return { error };
-    return{ result };
+    const { quoteNames, error: quoteError } = await quotes.getValidQuoteNames();
+    if (error) return { error: quoteError };
+    const validPosts = _.filter(result, (res) => _.includes(quoteNames, res.quote));
+    return{ result: validPosts };
 };
 
 const getStatsByInstrumentPipeline = ({ name, limit, skip, sortBy, sortDirection }) => {
@@ -32,5 +38,6 @@ const getStatsByInstrumentPipeline = ({ name, limit, skip, sortBy, sortDirection
         { $limit: limit }
     ];
 };
+
 
 module.exports = { getUserSummaryStats, getStatsByInstruments };
