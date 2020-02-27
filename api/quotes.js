@@ -16,7 +16,7 @@ const getValidQuoteNames = async () => {
     result.forEach((quote) => {
         quoteNames.push(quote.Name);
     });
-    return quoteNames;
+    return { quoteNames };
 };
 
 module.exports = { getQuotes, getValidQuoteNames };
