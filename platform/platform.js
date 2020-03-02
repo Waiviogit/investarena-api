@@ -19,7 +19,7 @@ const authorization = async (req, res) => {
         if(validator.validateAuthorisation(req.body)) {
             const token = await apiClient.getToken(tokenURI(req.body.platform), { email: req.body.email, Password: sha256(req.body.password) });
 
-            const url = `${authorisationURI(req.body.platform)}?user=${authorisationPrefix[ req.body.platform ]}${req.body.email}&pwd=${req.body.password}&t=${new Date().getTime()}&clienttype=InvestArena.bc`;
+            const url = `${authorisationURI(req.body.platform)}?user=${authorisationPrefix[ req.body.platform ]}${req.body.email}&pwd=${req.body.password}&t=${new Date().getTime()}&clientType=InvestArena.bc`;
 
             const result = await apiClient.authorization(url);
 
