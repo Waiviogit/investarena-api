@@ -17,45 +17,43 @@ const {
 const authorization = async (req, res) => {
     try {
         if(validator.validateAuthorisation(req.body)) {
-            const token = await apiClient.getToken(tokenURI(req.body.platform), {email: req.body.email, Password: sha256(req.body.password)});
+            const token = await apiClient.getToken(tokenURI(req.body.platform), { email: req.body.email, Password: sha256(req.body.password) });
 
-            const url = `${authorisationURI(req.body.platform)}?user=${authorisationPrefix[req.body.platform]}${req.body.email}&pwd=${req.body.password}&t=${new Date().getTime()}`;
+            const url = `${authorisationURI(req.body.platform)}?user=${authorisationPrefix[ req.body.platform ]}${req.body.email}&pwd=${req.body.password}&t=${new Date().getTime()}&clienttype=InvestArena.bc`;
 
             const result = await apiClient.authorization(url);
 
-            if(!result || !token){
-                res.status(401).json({error: 'Incorrect authorisation data'})
+            if(!result || !token) {
+                res.status(401).json({ error: 'Incorrect authorisation data' });
             } else {
-                res.status(200).json({...result, token});
+                res.status(200).json({ ...result, token });
             }
         } else {
-            res.status(422).json({error: 'Not enough data'})
+            res.status(422).json({ error: 'Not enough data' });
         }
-    }
-    catch (e) {
-        if(e.response && e.response.status && e.response.data && e.response.data.message){
-            res.status(e.response.status).json({error: e.response.data.message});
+    } catch (e) {
+        if(e.response && e.response.status && e.response.data && e.response.data.message) {
+            res.status(e.response.status).json({ error: e.response.data.message });
         }
-        res.status(422).json({error: e.message})
+        res.status(422).json({ error: e.message });
     }
 };
 
 const reconnect = async (req, res) => {
     try {
         if(validator.validateReconnect(req.body)) {
-            const connectionData = await apiClient.reconnect(reconnectURI(req.body.platform), {'su': req.body.stomp_user, 'sp': req.body.stomp_password});
+            const connectionData = await apiClient.reconnect(reconnectURI(req.body.platform), { 'su': req.body.stomp_user, 'sp': req.body.stomp_password });
 
-            if(!connectionData){
-                res.status(422).json({error: 'Data is incorrect'})
+            if(!connectionData) {
+                res.status(422).json({ error: 'Data is incorrect' });
             } else {
-                res.status(200).json({connectionData});
+                res.status(200).json({ connectionData });
             }
         } else {
-            res.status(422).json({error: 'Not enough data'})
+            res.status(422).json({ error: 'Not enough data' });
         }
-    }
-    catch (e) {
-        res.status(422).json({error: e.message})
+    } catch (e) {
+        res.status(422).json({ error: e.message });
     }
 };
 
@@ -64,30 +62,29 @@ const registration = async (req, res) => {
         if(validator.validateRegistration(req.body)) {
             const params = req.body;
             const paramsRequest = {
-            email: params.email,
-            password: params.password,
-            terms: true,
-            firstName: params.firstName,
-            LastName: params.lastName,
-            country: params.country,
-            PhoneCountry: params.phoneCountry,
-            PhoneOperator: params.phoneOperator,
-            PhoneNumber: params.phoneNumber,
-            LinkId: linkID[req.body.platform]
+                email: params.email,
+                password: params.password,
+                terms: true,
+                firstName: params.firstName,
+                LastName: params.lastName,
+                country: params.country,
+                PhoneCountry: params.phoneCountry,
+                PhoneOperator: params.phoneOperator,
+                PhoneNumber: params.phoneNumber,
+                LinkId: linkID[ req.body.platform ]
             };
             const connectionData = await apiClient.registration(registrationURI(req.body.platform), paramsRequest);
 
-            if(!connectionData){
-                res.status(422).json({error: 'Data is incorrect'})
+            if(!connectionData) {
+                res.status(422).json({ error: 'Data is incorrect' });
             } else {
-                res.status(200).json({connectionData});
+                res.status(200).json({ connectionData });
             }
         } else {
-            res.status(422).json({error: 'Not enough data'})
+            res.status(422).json({ error: 'Not enough data' });
         }
-    }
-    catch (e) {
-        res.status(422).json({error: e.message})
+    } catch (e) {
+        res.status(422).json({ error: e.message });
     }
     // try {
     //     const transactionStatus = await api.getBlockNumberStream();
