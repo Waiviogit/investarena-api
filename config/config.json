@@ -3,41 +3,24 @@
     "db": {
       "host": "localhost",
       "port": 27017,
-      "database": "wiaDB",
-      "databaseWaivio": "waivio"
+      "database": "ciaDB"
     },
     "redis": {
       "host": "localhost",
       "port": 6379,
-      "forecasts": 4
+      "forecasts": 3
     }
   },
-
-  "staging" : {
-    "db": {
-      "host": "localhost",
-      "port": 27017,
-      "database": "wiaDB",
-      "databaseWaivio": "waivio"
-    },
-    "redis": {
-      "host": "localhost",
-      "port": 6379,
-      "forecasts": 4
-    }
-  },
-
   "development": {
     "db": {
       "host": "localhost",
       "port": 27017,
-      "database": "wiaDB",
-      "databaseWaivio": "waivio"
+      "database": "ciaDBDev"
     },
     "redis": {
       "host": "localhost",
       "port": 6379,
-      "forecasts": 4
+      "forecasts": 3
     }
   }
 }

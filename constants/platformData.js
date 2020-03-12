@@ -55,8 +55,20 @@ const linkID = {
     limefx: 'investarena-lf'
 };
 
+const waivioAPIData = {
+    production: {
+        BASE_API_URL: 'https://www.waivio.com/api',
+        GET_MANY_POSTS: '/posts/getMany'
+    },
+    development: {
+        BASE_API_URL: 'https://waiviodev.com/api',
+        GET_MANY_POSTS: '/posts/getMany'
+    }
+
+};
 
 module.exports = {
+    waivioAPIData: waivioAPIData[ process.env.NODE_ENV || 'development' ],
     registrationURI,
     authorisationURI,
     reconnectURI,

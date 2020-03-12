@@ -1,4 +1,4 @@
-const db = require('../wiadb_connect');
+const db = require('../ciadb_connect');
 const mongoose = require('mongoose');
 
 const { performerTypes } = require('../../constants/performerStatistic');

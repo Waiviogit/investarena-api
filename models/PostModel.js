@@ -1,14 +1,12 @@
-const { Post } = require('../databaseWaivio').models;
-const DEFAULT_FORECAST_IDENTITY_KEY = 'forecast';
+const { postRef } = require('../database').models;
 
-const getWithForecastByWobject = async ({ author_permlink, skip, limit, forecastKey = DEFAULT_FORECAST_IDENTITY_KEY }) => {
+const getWithForecastByWobject = async ({ author_permlink, skip, limit }) => {
     try {
-        const posts = await Post
-            .find({ 'wobjects.author_permlink': author_permlink, [ forecastKey ]: { $exists: true } })
+        const posts = await postRef
+            .find({ $elemMatch: { wobjects: author_permlink } })
             .sort({ _id: -1 })
             .skip(skip)
             .limit(limit)
-            .populate({ path: 'fullObjects', select: '-latest_posts' })
             .lean();
         return { posts };
     } catch (error) {
@@ -16,14 +14,13 @@ const getWithForecastByWobject = async ({ author_permlink, skip, limit, forecast
     }
 };
 
-const getWithForecastByAuthor = async ({ author, skip, limit, forecastKey = DEFAULT_FORECAST_IDENTITY_KEY }) => {
+const getWithForecastByAuthor = async ({ author, skip, limit }) => {
     try {
-        const posts = await Post
-            .find({ author, [ forecastKey ]: { $exists: true } })
+        const posts = await postRef
+            .find({ author })
             .sort({ _id: -1 })
             .skip(skip)
             .limit(limit)
-            .populate({ path: 'fullObjects', select: '-latest_posts' })
             .lean();
         return { posts };
     } catch (error) {
@@ -31,13 +28,4 @@ const getWithForecastByAuthor = async ({ author, skip, limit, forecastKey = DEFA
     }
 };
 
-const fromAggregation = async (pipeline) => {
-    try {
-        const result = await Post.aggregate(pipeline);
-        return { result };
-    } catch (error) {
-        return { error };
-    }
-};
-
-module.exports = { getWithForecastByWobject, fromAggregation, getWithForecastByAuthor };
+module.exports = { getWithForecastByWobject, getWithForecastByAuthor };

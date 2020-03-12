@@ -10,7 +10,7 @@ const withForecastByUser = async (req, res, next) => {
     }, validators.postValidator.withForecastByUserSchema, next);
     if (!value) return;
 
-    const { posts, error } = await PostHelper.getWithForecastByAuthor(value);
+    const { posts, error } = await PostHelper.getWithForecast(value);
 
     if (error) return next(error);
     return res.status(200).json(posts);
@@ -24,7 +24,7 @@ const withForecastByWobject = async (req, res, next) => {
     }, validators.postValidator.withForecastByWobjectSchema, next);
     if (!value) return;
 
-    const { posts, error } = await PostHelper.getWithForecastByWobject(value);
+    const { posts, error } = await PostHelper.getWithForecast(value);
 
     if (error) return next(error);
     return res.status(200).json(posts);
