@@ -1,20 +1,31 @@
 const apiClient = require('../api');
 const _ = require('lodash');
 const sha256 = require('js-sha256');
-const { validator } = require('../validator');
+const { validator, validate, beaxy } = require('../validator');
+const { beaxyAuthHelper } = require('../utilities/helpers');
 const {
     registrationURI,
     authorisationURI,
     reconnectURI,
     tokenURI,
-    getPlatformTokenURI,
-    tradingPlatformURI,
-    setTokenURI,
     authorisationPrefix,
     linkID
 } = require('../constants/platformData');
 
-const authorization = async (req, res) => {
+const authSwitcher = async (req, res) => {
+    const platform = _.get(req, 'body.platform', null);
+    if (!platform) return res.status(422).json({ error: 'Not enough data' });
+    switch(platform) {
+        case 'beaxy' :
+            await beaxyAuth(req, res);
+            break;
+        default:
+            await maxiAuthorization(req, res);
+            break;
+    }
+};
+
+const maxiAuthorization = async (req, res) => {
     try {
         if(validator.validateAuthorisation(req.body)) {
             const token = await apiClient.getToken(tokenURI(req.body.platform), { email: req.body.email, Password: sha256(req.body.password) });
@@ -39,10 +50,19 @@ const authorization = async (req, res) => {
     }
 };
 
+const beaxyAuth = async (req, res) => {
+    const { validation_error, params } = validate(req.body, beaxy.socialBeaxySchema);
+
+    if (validation_error) return res.status(422).json({ error: 'Not enough data' });
+    return beaxyAuthHelper.beaxyStrategy(params, res);
+};
+
+
 const reconnect = async (req, res) => {
     try {
         if(validator.validateReconnect(req.body)) {
-            const connectionData = await apiClient.reconnect(reconnectURI(req.body.platform), { 'su': req.body.stomp_user, 'sp': req.body.stomp_password });
+            let body = req.body.platform === 'beaxy' ? { 'stompUser': req.body.stomp_user, 'stompPassword': req.body.stomp_password } : { 'su': req.body.stomp_user, 'sp': req.body.stomp_password };
+            const connectionData = await apiClient.reconnect(reconnectURI(req.body.platform), body);
 
             if(!connectionData) {
                 res.status(422).json({ error: 'Data is incorrect' });
@@ -86,39 +106,9 @@ const registration = async (req, res) => {
     } catch (e) {
         res.status(422).json({ error: e.message });
     }
-    // try {
-    //     const transactionStatus = await api.getBlockNumberStream();
-    //     console.log(transactionStatus);
-    //     if(!transactionStatus){
-    //         res.status(422).json({error: 'Data is incorrect'})
-    //     } else {
-    //         res.status(200).json();
-    //     }
-    // }
-    // catch (e) {
-    //     res.status(422).json({error: e.message})
-    // }
 };
 
-// const getCurrentBlock = async (req, res) => {
-//     try {
-//         const currentBlockData = await api.getCurrentBlock();
-//         if(currentBlockData){
-//             _.forEach(currentBlockData.transactions, transaction => {
-//                 console.log(transaction.operations[0][0]);
-//                 console.log(transaction.operations[0][1]);
-//             });
-//             res.status(200).json();
-//         } else {
-//             res.status(422).json({error: 'Data is incorrect'})
-//
-//         }
-//     }
-//     catch (e) {
-//         res.status(422).json({error: e.message})
-//     }
-// };
 
 module.exports = {
-    registration, authorization, reconnect
+    registration, authSwitcher, reconnect
 };

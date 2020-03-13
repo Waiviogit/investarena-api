@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const axios = require('axios');
 const https = require('https');
 
@@ -49,7 +50,10 @@ class ApiClient {
         try {
             const r = await axios.post(url, body, { httpsAgent: new https.Agent({ rejectUnauthorized: false }) });
             if (r.status === 200) {
-                return 'platform connected successfully';
+                if (r.data && r.data.response === 'BAD_REQUEST') {
+                    throw { message: r.data };
+                }
+                return _.get(r, 'data', 'platform connected successfully');
             }
         } catch (e) {
             throw e;

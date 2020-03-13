@@ -1,29 +1,29 @@
-const requiredFieldsAuthorisation = ['platform', 'email', 'password'];
+const requiredFieldsAuthorisation = [ 'platform', 'email', 'password' ];
 
 const validateAuthorisation = (data) => {
     let isValid = true;
     requiredFieldsAuthorisation.forEach(field => {
-        if(data[field] === undefined || data[field] === null) isValid = false
+        if(data[ field ] === undefined || data[ field ] === null) isValid = false;
     });
     return isValid;
 };
 
-const requiredFieldsReconnect = ['stomp_user', 'stomp_password', 'platform'];
+const requiredFieldsReconnect = [ 'stomp_user', 'stomp_password', 'platform' ];
 
 const validateReconnect = (data) => {
     let isValid = true;
     requiredFieldsReconnect.forEach(field => {
-        if(data[field] === undefined || data[field] === null) isValid = false
+        if(data[ field ] === undefined || data[ field ] === null) isValid = false;
     });
     return isValid;
 };
 
-const requiredFieldsRegistration = ['email', 'password', 'firstName', 'lastName', 'country', 'phoneCountry', 'phoneOperator', 'phoneNumber', 'platform'];
+const requiredFieldsRegistration = [ 'email', 'password', 'firstName', 'lastName', 'country', 'phoneCountry', 'phoneOperator', 'phoneNumber', 'platform' ];
 
 const validateRegistration = (data) => {
     let isValid = true;
     requiredFieldsRegistration.forEach(field => {
-        if(data[field] === undefined || data[field] === null) isValid = false
+        if(data[ field ] === undefined || data[ field ] === null) isValid = false;
     });
     return isValid;
 };
@@ -37,7 +37,7 @@ const validateInputInstruments = (data) => {
     data.instruments.forEach(instrument => {
         if (!instrument) isValid = false;
         requiredInstrumentFields.forEach(field => {
-            if (instrument[field] === undefined || instrument[field] === null) isValid = false
+            if (instrument[ field ] === undefined || instrument[ field ] === null) isValid = false;
         });
     });
     return isValid;

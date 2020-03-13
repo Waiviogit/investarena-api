@@ -1,12 +1,13 @@
 const domainPlatform = {
-    maximarkets: 'trading.maximarkets.org',
-    umarkets: 'trading.umarkets.com',
-    maxitrade: 'trading.maxitrade.com',
-    tradeallcrypto: 'trading.tradeallcrypto.com',
-    tradiva: 'trading.tradiva.com',
-    '770capital': 'trading.770capital.com',
-    dowmarkets: 'trading.dowmarkets.com',
-    limefx: 'trading.limefx.com'
+    maximarkets: 'trading.maximarkets.org/auth/',
+    umarkets: 'trading.umarkets.com/auth/',
+    maxitrade: 'trading.maxitrade.com/auth/',
+    tradeallcrypto: 'trading.tradeallcrypto.com/auth/',
+    tradiva: 'trading.tradiva.com/auth/',
+    '770capital': 'trading.770capital.com/auth/',
+    dowmarkets: 'trading.dowmarkets.com/auth/',
+    limefx: 'trading.limefx.com/auth/',
+    beaxy: 'uat-exchange.tokenexus.com/auth/v1/by/session'
 };
 const domainCRM = {
     maximarkets: 'publicapi.maximarkets.org',
@@ -21,17 +22,16 @@ const domainCRM = {
 
 const registrationURI = platform => `https://${domainCRM[ platform ]}/registration/full`;
 
-const authorisationURI = platform => `https://${domainPlatform[ platform ]}/auth/`;
+const authorisationURI = platform => `https://${domainPlatform[ platform ]}`;
 
-const reconnectURI = platform => `https://${domainPlatform[ platform ]}/auth/`;
+const reconnectURI = platform => `https://${domainPlatform[ platform ]}`;
 
 const tokenURI = platform => `https://${domainCRM[ platform ]}/trading/accounts`;
 
-const getPlatformTokenURI = platform => `https://${domainPlatform[ platform ]}/auth/token`;
+const getPlatformTokenURI = platform => `https://${domainPlatform[ platform ]}token`;
 
-const tradingPlatformURI = platform => `https://${domainPlatform[ platform ]}/login.html`;
 
-const setTokenURI = platform => `https://${domainPlatform[ platform ]}/auth/set`;
+const setTokenURI = platform => `https://${domainPlatform[ platform ]}set`;
 
 const authorisationPrefix = {
     maximarkets: 'maxi..',
@@ -77,7 +77,6 @@ module.exports = {
     reconnectURI,
     tokenURI,
     getPlatformTokenURI,
-    tradingPlatformURI,
     setTokenURI,
     authorisationPrefix,
     linkID

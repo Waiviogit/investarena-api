@@ -15,7 +15,7 @@ routes.use('/investarena-api', apiRoutes);
 routes.route('/favicon.ico').get((req, res) => res.status(204));
 
 apiRoutes.route('/broker/authorization')
-    .post(platform.authorization);
+    .post(platform.authSwitcher);
 apiRoutes.route('/broker/reconnect')
     .post(platform.reconnect);
 apiRoutes.route('/broker/registration')

@@ -9,7 +9,9 @@
       "host": "localhost",
       "port": 6379,
       "forecasts": 3
-    }
+    },
+    "beaxyUrl": "https://uat-exchange.tokenexus.com",
+    "beaxyPrefix": "tokenexus.."
   },
   "development": {
     "db": {
@@ -21,6 +23,8 @@
       "host": "localhost",
       "port": 6379,
       "forecasts": 3
-    }
+    },
+    "beaxyUrl": "https://uat-exchange.tokenexus.com",
+    "beaxyPrefix": "tokenexus.."
   }
 }
