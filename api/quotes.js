@@ -2,7 +2,7 @@ const axios = require('axios');
 
 const getQuotes = async () => {
     try{
-        const result = await axios.get('http://informer.investforum.ru/wss/server.ashx?id=0');
+        const result = await axios.get('https://wgt-srv0.beaxy.com/wss/server.ashx?id=0');
         return { result: result.data };
     }catch (error) {
         return { error };

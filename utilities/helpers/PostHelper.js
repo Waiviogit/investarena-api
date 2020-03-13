@@ -14,6 +14,7 @@ const getWithForecast = async ({ skip, limit, author_permlink, name }) => {
         if(error) return{ error };
         posts = postsByWobject;
     }
+    if (!posts || !posts.length) return { posts: [] };
     const request = {
         method: 'post',
         url: `${waivioAPIData.BASE_API_URL}${waivioAPIData.GET_MANY_POSTS}`,

@@ -67,7 +67,10 @@ const waivioAPIData = {
 
 };
 
+const allowProxyHeaders = [ 'access-token', 'waivio-auth' ];
+
 module.exports = {
+    allowProxyHeaders,
     waivioAPIData: waivioAPIData[ process.env.NODE_ENV || 'development' ],
     registrationURI,
     authorisationURI,
