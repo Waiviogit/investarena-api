@@ -13,10 +13,10 @@ exports.beaxyStrategy = async (params, res) => {
                 if (um_session) {
                     res.setHeader('um_session', um_session.value);
                 }
-                return res.status(200).json({ result: result.data });
+                return res.status(200).json(result.data);
             case 'TWO_FA_VERIFICATION_NEEDED' :
                 if(_.get(result, 'data.payload.token2fa')) {
-                    return res.status(200).json({ result: result.data });
+                    return res.status(200).json(result.data);
                 }
                 return res.status(422).json({ error: { message: '2fa token not provided' } });
             default :
