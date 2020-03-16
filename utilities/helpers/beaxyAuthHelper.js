@@ -1,6 +1,17 @@
 const _ = require('lodash');
 const Beaxy = require('../requests/beaxy');
 
+const successView = (data, umSession) => ({
+    code: data.code,
+    response: data.response,
+    sid: data.payload.sessionId,
+    stompPassword: data.payload.stompPassword,
+    stompUser: data.payload.stompUser,
+    um_session: umSession,
+    token: data.payload.crmToken
+
+});
+
 exports.beaxyStrategy = async (params, res) => {
     const data = {
         key: _.has(params.authData, [ 'password' ]) ? '' : '/2fa',
@@ -13,7 +24,7 @@ exports.beaxyStrategy = async (params, res) => {
                 if (um_session) {
                     res.setHeader('um_session', um_session.value);
                 }
-                return res.status(200).json(result.data);
+                return res.status(200).json(successView(result.data, _.get(um_session, 'value', null)));
             case 'TWO_FA_VERIFICATION_NEEDED' :
                 if(_.get(result, 'data.payload.token2fa')) {
                     return res.status(200).json(result.data);
