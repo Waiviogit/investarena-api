@@ -27,7 +27,7 @@ const getWithForecast = async ({ skip, limit, author_permlink, name }) => {
     let { error: requestError, result } = await waivioApi.getData(request);
     if (requestError)return { error: requestError };
     result = _.forEach(result, (post) => {
-        const forecast = posts.find((p) => p.author === post.author);
+        const forecast = posts.find((p) => p.author === post.author && p.permlink === post.permlink);
         post = Object.assign(post, _.omit(forecast, [ 'wobjects' ]));
         return post;
     });
