@@ -10,8 +10,8 @@
       "port": 6379,
       "forecasts": 3
     },
-    "beaxyUrl": "https://uat-exchange.tokenexus.com",
-    "beaxyPrefix": "tokenexus.."
+    "beaxyUrl": "https://exchange.beaxy.com",
+    "beaxyPrefix": "beaxy.."
   },
   "development": {
     "db": {
@@ -24,7 +24,7 @@
       "port": 6379,
       "forecasts": 3
     },
-    "beaxyUrl": "https://uat-exchange.tokenexus.com",
-    "beaxyPrefix": "tokenexus.."
+    "beaxyUrl": "https://exchange.beaxy.com",
+    "beaxyPrefix": "beaxy.."
   }
 }
