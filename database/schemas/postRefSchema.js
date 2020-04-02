@@ -7,7 +7,7 @@ const PostRefSchema = new Schema({
     author: { type: String, required: true },
     root_author: { type: String, default: '' },
     permlink: { type: String, required: true },
-    wobjects: { type: [ String ], default: [], index: true }
+    post_wobjects: { type: [ String ], default: [], index: true }
 }, { strict: false, timestamps: true });
 
 PostRefSchema.index({ root_author: 1, permlink: 1 }, { unique: true });

@@ -3,7 +3,7 @@ const { postRef } = require('../database').models;
 const getWithForecastByWobject = async ({ author_permlink, skip, limit }) => {
     try {
         const posts = await postRef
-            .find({ wobjects: author_permlink })
+            .find({ post_wobjects: author_permlink })
             .sort({ _id: -1 })
             .skip(skip)
             .limit(limit)
