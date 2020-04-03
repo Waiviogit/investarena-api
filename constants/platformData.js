@@ -60,6 +60,10 @@ const waivioAPIData = {
         BASE_API_URL: 'https://www.waivio.com/api',
         GET_MANY_POSTS: '/posts/getMany'
     },
+    staging: {
+        BASE_API_URL: 'https://waiviodev.com/api',
+        GET_MANY_POSTS: '/posts/getMany'
+    },
     development: {
         BASE_API_URL: 'https://waiviodev.com/api',
         GET_MANY_POSTS: '/posts/getMany'
