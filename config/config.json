@@ -13,6 +13,20 @@
     "beaxyUrl": "https://exchange.beaxy.com",
     "beaxyPrefix": "beaxy.."
   },
+  "staging" : {
+    "db": {
+      "host": "localhost",
+      "port": 27017,
+      "database": "ciaDB"
+    },
+    "redis": {
+      "host": "localhost",
+      "port": 6379,
+      "forecasts": 3
+    },
+    "beaxyUrl": "https://uat-exchange.tokenexus.com",
+    "beaxyPrefix": "tokenexus.."
+  },
   "development": {
     "db": {
       "host": "localhost",
@@ -24,7 +38,7 @@
       "port": 6379,
       "forecasts": 3
     },
-    "beaxyUrl": "https://exchange.beaxy.com",
-    "beaxyPrefix": "beaxy.."
+    "beaxyUrl": "https://uat-exchange.tokenexus.com",
+    "beaxyPrefix": "tokenexus.."
   }
 }
