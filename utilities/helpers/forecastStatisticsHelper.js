@@ -27,7 +27,7 @@ function getStatsByPeriods(forecasts) {
     const datePoints = getDatePoints();
 
     let initProfitabilityParams = {
-        pips: 0, failed_pips: 0, successful_pips: 0, successful_count: 0, failed_count: 0
+        pips: 0, failed_pips: 0, successful_pips: 0, successful_count: 0, failed_count: 0, neutral_count: 0
     };
     // Object.keys(datePoints).forEach((pastDate) => {
 
@@ -49,6 +49,8 @@ function getStatsByPeriods(forecasts) {
                 } else if(curr.expForecast.profitability < 0) {
                     acc.failed_count += 1;
                     acc.failed_pips += _.parseInt(curr.expForecast.profitability);
+                } else if(curr.expForecast.profitability === 0) {
+                    acc.neutral_count += 1;
                 }
                 acc.pips += _.parseInt(curr.expForecast.profitability);
                 return acc;
@@ -72,7 +74,7 @@ function uniqStatisticValues(stat) {
     if (stat) {
         const uniqValuesStat = { ...stat };
         for (let i = 0; i < periods.length; i += 1) {
-            if (!stat[ periods[ i ] ] || stat[ periods[ i ] ] === stat[ periods[ i - 1 ] ]) {
+            if (stat[ periods[ i ] ] === null || stat[ periods[ i ] ] === stat[ periods[ i - 1 ] ]) {
                 delete uniqValuesStat[ periods[ i ] ];
             }
         }

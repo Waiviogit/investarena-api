@@ -31,7 +31,7 @@
     "db": {
       "host": "localhost",
       "port": 27017,
-      "database": "ciaDBDev"
+      "database": "сiaDBDev"
     },
     "redis": {
       "host": "localhost",

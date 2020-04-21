@@ -31,7 +31,7 @@ const getInstrumentStatistic = async function getInstrumentStatByAuthorPermlink(
 const getTopPerformersByPeriod = async function getTopPerformersByPeriod({ period, limit = 5, skip = 0 }) {
     try {
         const result = await PerformerStatistic
-            .find({}, `${period} name avatar type id -_id`)
+            .find({ [ period ]: { $ne: null } }, `${period} name avatar type id -_id`)
             .sort({ [ period ]: -1 })
             .skip(skip)
             .limit(limit)
